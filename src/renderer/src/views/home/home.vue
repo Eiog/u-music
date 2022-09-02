@@ -4,10 +4,6 @@ import { useAppStore } from '@@/store'
 const appStore = useAppStore()
 </script>
 <template>
-  <div flex="~ col 1" items="center" justify="center" gap="3">
-    <HelloWorld />
-    <p text="2xl">{{ appStore.count }}</p>
-    <n-button type="primary" size="medium" @click="appStore.count++">加</n-button>
-  </div>
+  <div flex="~ col 1" items="center" justify="center" gap="3">home</div>
 </template>
 <style scoped lang="less"></style>
