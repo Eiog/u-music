@@ -4,4 +4,8 @@
     <p text="3xl" font="light">LOGO</p>
   </div>
 </template>
-<style scoped lang="less"></style>
+<style scoped lang="less">
+div {
+  -webkit-app-region: drag;
+}
+</style>
