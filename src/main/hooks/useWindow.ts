@@ -1,7 +1,7 @@
 import { shell, BrowserWindow } from 'electron'
 import { is } from '@electron-toolkit/utils'
 import path from 'path'
-const useWindow = (): BrowserWindow => {
+const useWindow = (dev: boolean = false): BrowserWindow => {
     const mainWindow = new BrowserWindow({
         width: 960,
         height: 720,
@@ -16,7 +16,8 @@ const useWindow = (): BrowserWindow => {
             : {}),
         webPreferences: {
             preload: path.join(__dirname, '../preload/index.js'),
-            webSecurity: false
+            webSecurity: false,
+            devTools: dev ? true : false
         }
     })
     mainWindow.on('ready-to-show', () => {
