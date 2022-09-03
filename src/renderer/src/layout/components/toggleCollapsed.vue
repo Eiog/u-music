@@ -13,7 +13,7 @@ const icon = computed(() =>
     right="0"
     p="x-0 y-3"
     flex-center
-    text="xl"
+    text="xl gray-500"
     rounded-full
     :class="[
       `-translate-y-50%`,

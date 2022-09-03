@@ -11,6 +11,7 @@
       gap="2"
       items="center"
       p="x3"
+      text="gray-600"
       class="cursor-pointer"
     >
       <i text="lg" i-ri-apps-2-fill></i>
