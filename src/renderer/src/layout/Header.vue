@@ -1,6 +1,9 @@
 <script setup lang="ts" name="">
 import { useAppStore } from '@@/store';
 import { NCheckbox } from 'naive-ui';
+import UserDropdown from './components/UserDropdown.vue';
+import Search from './components/Search.vue';
+const router = useRouter();
 const appStore = useAppStore();
 const handleClose = () => {
   if (appStore.closeByMini === true)
@@ -39,16 +42,33 @@ const handleFullscreen = (mode?: string) => {};
 </script>
 <template>
   <header flex="~">
-    <div m="l-auto" flex-center gap="3" p="x-3">
-      <div class="action-btn" @click="handleMiniApp">
+    <div flex="~" flex-center gap="5" m="l-5">
+      <n-button secondary circle strong @click="router.go(-1)">
+        <i i-ri-arrow-left-s-line></i>
+      </n-button>
+      <n-button secondary circle strong @click="router.go(1)">
+        <i i-ri-arrow-right-s-line></i>
+      </n-button>
+    </div>
+    <div flex-center m="l-5">
+      <Search />
+    </div>
+    <div m="l-auto" flex-center>
+      <user-dropdown />
+    </div>
+    <div m="l-5" flex-center gap="3" p="x-3">
+      <n-button secondary circle strong>
+        <i i-ri-settings-4-line></i>
+      </n-button>
+      <n-button secondary circle strong @click="handleMiniApp">
         <i i-ri-subtract-fill></i>
-      </div>
-      <div class="action-btn">
+      </n-button>
+      <n-button secondary circle strong>
         <i i-ri-fullscreen-fill></i>
-      </div>
-      <div class="action-btn" @click="handleClose">
+      </n-button>
+      <n-button secondary circle strong @click="handleClose">
         <i i-ri-close-fill></i>
-      </div>
+      </n-button>
     </div>
   </header>
 </template>

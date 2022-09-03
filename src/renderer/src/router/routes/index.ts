@@ -1,6 +1,10 @@
 import { RouteRecordRaw } from 'vue-router'
 import homeRoutes from './home.routes'
-const _routes = [homeRoutes]
+import searchRoutes from './search.routes'
+const _routes = [
+  homeRoutes,
+  searchRoutes
+]
 const routes: RouteRecordRaw[] = [
   {
     path: '/',

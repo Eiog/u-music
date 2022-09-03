@@ -1,10 +1,18 @@
 <script setup lang="ts" name=""></script>
 <template>
-  <router-view v-slot="{ Component }">
-    <transition name="fade-transform" mode="out-in">
-      <component :is="Component"></component>
-    </transition>
-  </router-view>
+  <div>
+    <router-view v-slot="{ Component }">
+      <transition name="fade-transform" mode="out-in">
+        <component
+          bg="white"
+          flex="~ col 1"
+          rounded-xl
+          p="2"
+          :is="Component"
+        ></component>
+      </transition>
+    </router-view>
+  </div>
 </template>
 <style scoped lang="less">
 .fade-transform-leave-active,
