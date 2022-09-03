@@ -3,9 +3,9 @@ import NProgress from 'nprogress'
 import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from './_methods';
 import { repeatRequestIntercept } from './_methods'
+import { useAppStore } from '@@/store';
 const { addPending, removePending } = repeatRequestIntercept()
-const BASE_PREFIX = import.meta.env.VITE_API_BASEURL || 'https://netease-cloud-music-api-caoboa.vercel.app/';
-console.log(BASE_PREFIX);
+const BASE_PREFIX = import.meta.env.VITE_API_BASEURL || 'http://101.200.179.232:3702/';
 
 // 创建实例
 const axiosInstance: AxiosInstance = axios.create({
@@ -63,7 +63,10 @@ axiosInstance.interceptors.response.use(
   }
 );
 const http = {
-  get: (url: string, data?: object) => axiosInstance.get(url, { params: data }),
+  get: (url: string, data?: object) => {
+    const { cookie } = useAppStore()
+    return axiosInstance.get(url, { params: { cookie, ...data } })
+  },
   post: (url: string, data?: object) => axiosInstance.post(url, data),
   put: (url: string, data?: object) => axiosInstance.put(url, data),
   delete: (url: string, data?: object) => axiosInstance.delete(url, { data: data }),

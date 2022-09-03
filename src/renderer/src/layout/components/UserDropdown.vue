@@ -1,13 +1,21 @@
 <script setup lang="ts" name="">
-import { DropdownOption, NInput, NButton } from 'naive-ui';
+import { DropdownOption, NButton } from 'naive-ui';
 import LoginPanel from './LoginPanel.vue';
-type Props = {
-  isLogin?: boolean;
-};
-const props = defineProps<Props>();
+import { useAppStore } from '@@/store';
+import { loginApi } from '@@/api';
+const { profile } = storeToRefs(useAppStore());
+
 const options: DropdownOption[] = [
   {
-    key: '',
+    key: 'logout',
+    label: '退出登录',
+    props: {
+      onClick: () => {
+        loginApi.logOut().then(() => {
+          window.$message.success('退出登录');
+        });
+      },
+    },
   },
 ];
 const handleRenderLoginWindow = () => {
@@ -20,16 +28,15 @@ const handleRenderLoginWindow = () => {
 };
 </script>
 <template>
-  <n-button secondary v-if="!props.isLogin" @click="handleRenderLoginWindow">
+  <n-button secondary v-if="!profile" @click="handleRenderLoginWindow">
     登录
   </n-button>
-  <n-dropdown :options="options" v-if="props.isLogin">
+  <n-dropdown :options="options" v-if="profile">
     <div flex-center gap="3">
-      <n-avatar
-        round
-        src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-      />
-      <n-ellipsis style="max-width: 60px"> name1111111 </n-ellipsis>
+      <n-avatar class="cursor-pointer" round :src="profile.avatarUrl" />
+      <n-ellipsis style="max-width: 60px" class="cursor-pointer">
+        {{ profile.nickname }}
+      </n-ellipsis>
     </div>
   </n-dropdown>
 </template>
