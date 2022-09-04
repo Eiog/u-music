@@ -14,9 +14,22 @@ type Props = {
 const props = defineProps<Props>();
 const menu = ref([
   {
-    label: '发现',
+    label: '发现音乐',
     key: 'find',
     path: '/find',
+    icon: 'i-ri-apps-2-fill',
+  },
+  {
+    label: '视频MV',
+    key: 'video',
+    path: '/video',
+    icon: 'i-ri-movie-2-fill',
+  },
+  {
+    label: '私人FM',
+    key: 'fm',
+    path: '/fm',
+    icon: 'i-ri-radio-fill',
   },
 ]);
 onMounted(() => {
@@ -24,11 +37,11 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div flex="~ col 1" items="center" overflow="x-hidden y-auto" p="y-2">
+  <div flex="~ col 1" gap="3" items="center" overflow="x-hidden y-auto" p="y-2">
     <div
       w="full"
       p="x2"
-      h="12"
+      h="10"
       flex-center
       text="gray-600"
       class="cursor-pointer"
@@ -37,24 +50,25 @@ onMounted(() => {
     >
       <div
         transition="colors"
-        bg="gray-200 hover:gray-300"
-        rounded-xl
-        h="12"
+        bg="hover:gray-100 active:gray-100"
+        rounded-md
+        h="10"
         flex="~"
         items="center"
         gap2
         px2
+        class="select-none"
         :class="[
-          props.collapsed ? 'w-12 justify-center' : 'w-full',
-          _path === item.path ? '!bg-gray-300' : '',
+          props.collapsed ? 'w-10 justify-center' : 'w-full',
+          _path === item.path ? 'bg-gray-100 text-lg' : 'text-base',
         ]"
         ref="domRef"
         @click="router.push(item.path)"
       >
         <div flex-center>
-          <i class="text-2xl i-ri-apps-2-fill"></i>
+          <i :class="item.icon"></i>
         </div>
-        <span v-if="!props.collapsed" text="xl">{{ item.label }}</span>
+        <span v-if="!props.collapsed" transform="all ">{{ item.label }}</span>
       </div>
     </div>
   </div>

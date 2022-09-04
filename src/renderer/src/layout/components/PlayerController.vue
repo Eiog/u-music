@@ -1,11 +1,16 @@
-<script setup lang="ts" name=""></script>
+<script setup lang="ts" name="">
+import { usePlayerStore } from '@@/store';
+const playerStore = usePlayerStore();
+const { play, prev, next } = playerStore;
+const { playing } = storeToRefs(playerStore);
+</script>
 <template>
-  <div flex-center gap="5">
+  <div flex-center flex="1" gap="8">
     <div class="btn">
       <i i-ri-skip-back-mini-fill></i>
     </div>
-    <div class="btn" transform="scale-120">
-      <i i-ri-play-fill></i>
+    <div class="btn" transform="scale-120" @click="playing = !playing">
+      <i :class="playing ? 'i-ri-pause-fill' : 'i-ri-play-fill'"></i>
     </div>
     <div class="btn">
       <i i-ri-skip-forward-mini-fill></i>
@@ -14,6 +19,6 @@
 </template>
 <style scoped lang="less">
 .btn {
-  @apply rounded-full cursor-pointer flex bg-gray-100 h-10 transition-colors text-2xl w-10 items-center justify-center hover:bg-gray-200 active:bg-gray-300;
+  @apply rounded-full cursor-pointer flex bg-gray-100 h-8 text-black transition-opacity transition-colors text-opacity-60 text-2xl w-8 items-center justify-center hover:(bg-gray-200 text-opacity-80) active:(bg-gray-300 text-opacity-100) ;
 }
 </style>

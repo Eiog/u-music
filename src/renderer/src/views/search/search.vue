@@ -6,37 +6,83 @@ const searchResultCount = ref<number>(0);
 const limit = ref(30);
 const page = ref(1);
 const type = ref(1);
+const loading = ref(true);
 const handleSearch = async () => {
   try {
+    loading.value = true;
     const { songs, songCount } = await searchApi.search(
       searchValue.value,
       limit.value,
       page.value - 1,
       type.value,
     );
-    searchResult.value = songs;
+    loading.value = false;
+    searchResult.value = isEnd.value
+      ? songs.filter((item, index) => {
+          return index >= limit.value - (songCount % limit.value);
+        })
+      : songs;
     searchResultCount.value = songCount;
-  } catch (error) {}
+  } catch (error) {
+    loading.value = false;
+  }
 };
 const route = useRoute();
 const searchValue = ref('');
+const pageCount = computed(() => {
+  return (
+    parseInt((searchResultCount.value / limit.value).toFixed(0)) +
+    (searchResultCount.value % limit.value === 0 ? 0 : 1)
+  );
+});
 watch(
   () => route.params.value,
   (val) => {
     searchValue.value = val as string;
+    page.value = 1;
     handleSearch();
   },
   { immediate: true },
 );
+const handlePageUpdate = (val: number) => {
+  page.value = val;
+  handleSearch();
+};
+const prefixCount = computed(() => {
+  return (page.value - 1) * limit.value + 1;
+});
+const isEnd = computed(() => {
+  return page.value === pageCount.value;
+});
 </script>
 <template>
   <div flex="~ col 1" gap="3" p="8">
-    <h1 text="xl" font="light" m="y-2">
-      搜索 <strong font="medium">{{ searchValue }}</strong> 找到
-      <strong text="rose-500" font="medium">{{ searchResultCount }}</strong>
-      条结果
-    </h1>
-    <SongTable flex="1" :data="searchResult" />
+    <div flex="~" items="center">
+      <h1 text="xl" font="light" m="y-2">
+        搜索 <strong font="medium">{{ searchValue }}</strong> 找到
+        <strong text="rose-500" font="medium">{{ searchResultCount }}</strong>
+        条结果
+      </h1>
+      <div flex-center m="l-auto">
+        <n-button round secondary strong @click="">
+          <div flex-center>
+            <i i-ri-play-fill></i>
+            <span>播放全部</span>
+          </div>
+        </n-button>
+      </div>
+    </div>
+    <SongTable
+      flex="1"
+      :data="searchResult"
+      :loading="loading"
+      :prefix-count="prefixCount"
+    />
+    <n-pagination
+      v-model:page="page"
+      :page-count="pageCount"
+      @update:page="handlePageUpdate"
+    />
   </div>
 </template>
 <style scoped lang="less"></style>

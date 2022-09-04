@@ -6,7 +6,7 @@
         <component
           bg="white"
           flex="~ col 1"
-          rounded-xl
+          rounded-md
           p="5"
           :is="Component"
         ></component>
@@ -18,13 +18,14 @@
 .fade-transform-leave-active,
 .fade-transform-enter-active {
   transition: all 0.3s ease-in-out;
+  transform-style: preserve-3d;
 }
 .fade-transform-enter-from {
-  transform: scale(0.95);
+  transform: translate(20px, 0);
   opacity: 0;
 }
 .fade-transform-leave-to {
-  transform: scale(1.05);
+  transform: translate(-20px, 0);
   opacity: 0;
 }
 </style>

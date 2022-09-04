@@ -26,6 +26,7 @@ watch(
       left="0"
       top="0"
       bg="rose-600"
+      transition="all ease-in-out"
       :style="{ width: `${_value}%` }"
     ></div>
   </div>

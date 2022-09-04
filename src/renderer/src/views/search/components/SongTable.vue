@@ -1,19 +1,24 @@
 <script setup lang="ts" name="">
 import { DataTableColumns, NButton, NTag } from 'naive-ui';
 import { SearchType } from '@@/api';
+import { usePlayerStore } from '@@/store';
+const { play } = usePlayerStore();
 type Song = SearchType['searchResult']['songs'][0];
 type Props = {
   data?: Song[];
   loading?: boolean;
+  prefixCount?: number;
 };
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  prefixCount: 1,
+});
 const columns: DataTableColumns<Song> = [
   {
     title: '#',
     key: '',
-    width: 30,
+    width: 60,
     render: (row, rowIndex) => {
-      return h('span', {}, { default: () => rowIndex + 1 });
+      return h('span', {}, { default: () => rowIndex + props.prefixCount });
     },
   },
   {
@@ -119,19 +124,22 @@ const columns: DataTableColumns<Song> = [
     },
   },
 ];
-const handlePlay = (song: Song) => {};
+const handlePlay = (song: Song) => {
+  console.log(song);
+  play(song.id);
+};
 const handleAddPlayList = (song: Song) => {};
 </script>
 <template>
   <div min-h="0">
-    <n-scrollbar>
-      <n-data-table
-        size="small"
-        :columns="columns"
-        :data="props.data"
-        :loading="props.loading"
-      />
-    </n-scrollbar>
+    <n-data-table
+      :style="{ height: '100%' }"
+      flex-height
+      size="small"
+      :columns="columns"
+      :data="props.data"
+      :loading="props.loading"
+    />
   </div>
 </template>
 <style scoped lang="less"></style>

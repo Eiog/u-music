@@ -3,8 +3,10 @@ import { is } from '@electron-toolkit/utils'
 import path from 'path'
 const useWindow = (dev: boolean = false): BrowserWindow => {
     const mainWindow = new BrowserWindow({
-        width: 960,
-        height: 720,
+        width: 1020,
+        minWidth: 1020,
+        height: 670,
+        minHeight: 670,
         show: false,
         autoHideMenuBar: true,
         frame: false,

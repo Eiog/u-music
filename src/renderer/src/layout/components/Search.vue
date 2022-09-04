@@ -42,13 +42,14 @@ const handleVagueSearch = useDebounceFn((val: string) => {
       result.push({ key: item.name, label: item.name });
     });
     options.value = result;
-    showDropdown.value = true;
     loading.value = false;
   });
 }, 1000);
 
 const handleFocus = () => {
-  if (inputValue.value === '') handleHotSearch();
+  inputValue.value === ''
+    ? handleHotSearch()
+    : handleVagueSearch(inputValue.value);
   showDropdown.value = true;
 };
 const renderLabel = (option: DropdownOption) => {
@@ -62,13 +63,6 @@ const renderLabel = (option: DropdownOption) => {
     { default: () => option.label },
   );
 };
-watch(inputValue, (val) => {
-  if (val) {
-    handleVagueSearch(val);
-    return;
-  }
-  handleHotSearch();
-});
 </script>
 <template>
   <n-dropdown
@@ -85,6 +79,7 @@ watch(inputValue, (val) => {
       round
       placeholder="搜索"
       @focus="handleFocus"
+      @input="handleVagueSearch"
     >
       <template #prefix>
         <i i-ri-search-2-line></i>

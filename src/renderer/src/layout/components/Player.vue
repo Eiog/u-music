@@ -24,19 +24,19 @@ watch(
 const _showClass = computed(() => {
   return _show.value
     ? `visible opacity-100 translate-y-0`
-    : `invisible opacity-0 translate-y-20`;
+    : `invisible opacity-0 translate-y-100%`;
 });
 </script>
 <template>
   <div
     fixed
     left="0"
-    top="16"
+    top="14"
     right="0"
     bottom="0"
     flex="~ col 1"
     bg="opacity-40 white"
-    transition="all"
+    transition="all duration-300 ease-in-out"
     class="z-999 backdrop-blur-xl"
     :class="_showClass"
   >

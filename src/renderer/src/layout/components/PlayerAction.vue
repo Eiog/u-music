@@ -1,6 +1,6 @@
 <script setup lang="ts" name=""></script>
 <template>
-  <div flex-center gap="5" m="r-5">
+  <div flex="~ 1" items="center" justify="end" gap="5" m="r-5">
     <div class="btn">
       <i i-ri-shuffle-fill></i>
     </div>
@@ -17,6 +17,6 @@
 </template>
 <style scoped lang="less">
 .btn {
-  @apply cursor-pointer hover:text-gray-500 active:text-gray-700;
+  @apply cursor-pointer text-black transition-opacity text-opacity-60 hover:text-opacity-80 active:text-opacity-100;
 }
 </style>
