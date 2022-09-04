@@ -15,6 +15,7 @@ const icon = computed(() =>
     flex-center
     text="xl gray-500"
     rounded-full
+    z="9"
     :class="[
       `-translate-y-50%`,
       appStore.sideCollapsed ? `translate-x-6` : `translate-x-0`,

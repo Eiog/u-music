@@ -3,6 +3,7 @@ import { useAppStore } from '@@/store';
 import { NCheckbox } from 'naive-ui';
 import UserDropdown from './components/UserDropdown.vue';
 import Search from './components/Search.vue';
+import Brand from './components/Brand.vue';
 const router = useRouter();
 const appStore = useAppStore();
 const handleClose = () => {
@@ -38,11 +39,14 @@ const handleClose = () => {
 const handleMiniApp = () => {
   window.electron.ipcRenderer.send('mini-window');
 };
-const handleFullscreen = (mode?: string) => {};
+const handleFullscreen = () => {
+  window.electron.ipcRenderer.send('full-screen-toggle');
+};
 </script>
 <template>
   <header flex="~">
-    <div flex="~" flex-center gap="5" m="l-5">
+    <Brand />
+    <div flex="~" flex-center gap="5">
       <n-button secondary circle strong @click="router.go(-1)">
         <i i-ri-arrow-left-s-line></i>
       </n-button>
@@ -57,13 +61,13 @@ const handleFullscreen = (mode?: string) => {};
       <user-dropdown />
     </div>
     <div m="l-5" flex-center gap="3" p="x-3">
-      <n-button secondary circle strong>
+      <n-button secondary circle strong @click="router.push('/setting')">
         <i i-ri-settings-4-line></i>
       </n-button>
       <n-button secondary circle strong @click="handleMiniApp">
         <i i-ri-subtract-fill></i>
       </n-button>
-      <n-button secondary circle strong>
+      <n-button secondary circle strong @click="handleFullscreen">
         <i i-ri-fullscreen-fill></i>
       </n-button>
       <n-button secondary circle strong @click="handleClose">

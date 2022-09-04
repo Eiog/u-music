@@ -9,6 +9,8 @@ const options = ref<DropdownOption[]>([]);
 const hotSearchCache = ref<DropdownOption[]>([]);
 const handleSelect = (key: string) => {
   router.push(`/search/${key}`);
+  showDropdown.value = false;
+  inputValue.value = key;
 };
 
 const handleHotSearch = () => {

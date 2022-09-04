@@ -13,6 +13,8 @@ export default defineConfig({
   shortcuts: [
     {
       'flex-center': 'flex items-center justify-center'
+    }, {
+      'gradient-bg': 'bg-gradient-to-tr from-#fdfbfb to-#ebedee'
     }
   ],
   presets: [

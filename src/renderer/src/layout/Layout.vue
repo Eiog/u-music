@@ -3,20 +3,30 @@ import Header from './Header.vue';
 import Aside from './Aside.vue';
 import Main from './Main.vue';
 import Footer from './Footer.vue';
+import Player from './components/Player.vue';
+import BackdropBlur from './components/BackdropBlur.vue';
 import { useAppStore } from '@@/store';
+const appStore = useAppStore();
 </script>
 <template>
-  <div flex="~ 1" overflow="hidden">
-    <Aside
-      :w="useAppStore().sideCollapsed ? 0 : 60"
-      bg="gray-100"
-      transition="all"
-    />
-    <div flex="~ col 1">
-      <Header h="16" bg="gray-50" transition="all" />
-      <Main flex="~ 1" bg="gray-200" p="1" overflow="hidden" transition="all" />
-      <Footer h="16" bg="gray-50" transition="all" />
+  <div flex="~ col 1" overflow="hidden" relative>
+    <Header h="16" bg="white" transition="all" />
+    <div flex="~ 1" min-h="0">
+      <Aside
+        transition="all"
+        bg="light-300"
+        :class="appStore.sideCollapsed ? 'w-16' : 'w-50'"
+      />
+      <Main
+        flex="~ 1"
+        p="2"
+        overflow="hidden"
+        transition="all"
+        bg="light-500"
+      />
     </div>
+    <Footer h="20" bg="white" transition="all" />
   </div>
+  <Player v-model:show="appStore.playerShow" />
 </template>
 <style scoped lang="less"></style>

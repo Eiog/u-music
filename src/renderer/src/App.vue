@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Layout from './layout/Layout.vue'
-import { NaiveProvider } from '@@/components'
+import Layout from './layout/Layout.vue';
+import { NaiveProvider } from '@@/components';
 </script>
 
 <template>
@@ -9,6 +9,4 @@ import { NaiveProvider } from '@@/components'
   </naive-provider>
 </template>
 
-<style lang="less">
-@import './assets/css/styles.less';
-</style>
+<style lang="less"></style>

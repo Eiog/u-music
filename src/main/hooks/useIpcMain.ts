@@ -11,9 +11,12 @@ const useIpcMain = (app: App, mainWindow: BrowserWindow) => {
     ipcMain.on('close-window', () => {
         app.quit()
     })
-    ipcMain.on('full-window', () => {
-        console.log('full-window');
-
+    ipcMain.on('full-screen', (event, val) => {
+        mainWindow.setFullScreen(val)
+        event.returnValue = mainWindow.fullScreen
+    })
+    ipcMain.on('full-screen-toggle', () => {
+        mainWindow.setFullScreen(!mainWindow.fullScreen)
     })
 }
 export default useIpcMain

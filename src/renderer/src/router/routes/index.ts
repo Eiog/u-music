@@ -1,14 +1,16 @@
 import { RouteRecordRaw } from 'vue-router'
-import homeRoutes from './home.routes'
+import findRoutes from './find.routes'
 import searchRoutes from './search.routes'
+import settingRoutes from './setting.routes'
 const _routes = [
-  homeRoutes,
-  searchRoutes
+  ...findRoutes,
+  ...searchRoutes,
+  ...settingRoutes
 ]
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/find'
   },
   ..._routes,
   {

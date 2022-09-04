@@ -2,8 +2,13 @@ import useApp from './useApp'
 import useWindow from './useWindow'
 import useTray from './useTray'
 import useIpcMain from './useIpcMain'
-import useApi from './useApi'
 import useVueDevTools from './useVueDevTools'
+import useStore from './useStore'
 export {
-    useApp, useWindow, useTray, useIpcMain, useApi, useVueDevTools
+    useApp,
+    useWindow,
+    useTray,
+    useIpcMain,
+    useVueDevTools,
+    useStore
 }

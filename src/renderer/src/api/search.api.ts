@@ -115,6 +115,113 @@ export type SearchType = {
         source: number
         url: string
     }[]
+    searchResult: {
+        searchQcReminder: null
+        songCount: number
+        songs: {
+            a: null
+            al: {
+                id: number
+                name: string
+                pic: number
+                picUrl: string
+                pic_str: string
+                tns: []
+            }
+            alia: []
+            ar: {
+                alia: string[]
+                alias: string[]
+                id: number
+                name: string
+                tns: []
+            }[]
+            cd: string
+            cf: string
+            copyright: number
+            cp: number
+            crbt: null
+            djId: number
+            dt: number
+            entertainmentTags: null
+            fee: number
+            ftype: number
+            h: { br: number, fid: number, size: number, vd: number, sr: number }
+            hr: { br: number, fid: number, size: number, vd: number, sr: number }
+            id: number
+            l: { br: number, fid: number, size: number, vd: number, sr: number }
+            m: { br: number, fid: number, size: number, vd: number, sr: number }
+            mark: number
+            mst: number
+            mv: number
+            name: string
+            no: number
+            noCopyrightRcmd: null
+            originCoverType: number
+            originSongSimpleData: null
+            pop: number
+            privilege: {
+                chargeInfoList: {
+                    chargeMessage: null
+                    chargeType: number
+                    chargeUrl: null
+                    rate: number
+                }[]
+                cp: number
+                cs: Boolean
+                dl: number
+                dlLevel: string
+                downloadMaxBrLevel: string
+                downloadMaxbr: number
+                fee: number
+                fl: number
+                flLevel: string
+                flag: number
+                freeTrialPrivilege: {
+                    resConsumable: Boolean
+                    userConsumable: Boolean
+                    listenType: null
+                }
+                id: number
+                maxBrLevel: string
+                maxbr: number
+                payed: number
+                pl: number
+                plLevel: string
+                playMaxBrLevel: string
+                playMaxbr: number
+                preSell: Boolean
+                rscl: null
+                sp: number
+                st: number
+                subp: number
+                toast: Boolean
+            }
+            pst: number
+            publishTime: number
+            resourceState: true
+            rt: string
+            rtUrl: null
+            rtUrls: []
+            rtype: number
+            rurl: null
+            s_id: number
+            single: number
+            songJumpInfo: null
+            sq: {
+                br: number
+                fid: number
+                size: number
+                vd: number
+                sr: number
+            }
+            st: number
+            t: number
+            tagPicList: null
+            v: number
+            version: number
+        }[]
+    }
 }
 
 const vagueSearch = (val: string): Promise<SearchType['vagueSearch']> => {
@@ -133,7 +240,16 @@ const hotSearch = (): Promise<SearchType['hotSearch']> => {
         }).catch(err => reject(err))
     })
 }
+const search = (keywords: string, limit?: number, offset?: number, type?: number): Promise<SearchType['searchResult']> => {
+    return new Promise((resolve, reject) => {
+        http.get('/cloudsearch', { keywords, limit, offset, type }).then((res: any) => {
+            if (res.code === 200) return resolve(res.result as any)
+            return reject(res)
+        }).catch(err => reject(err))
+    })
+}
 export const searchApi = {
     vagueSearch,
-    hotSearch
+    hotSearch,
+    search
 }

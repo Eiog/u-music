@@ -2,9 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosRes
 import NProgress from 'nprogress'
 import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from './_methods';
-import { repeatRequestIntercept } from './_methods'
 import { useAppStore } from '@@/store';
-const { addPending, removePending } = repeatRequestIntercept()
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL || 'http://101.200.179.232:3702/';
 
 // 创建实例
@@ -25,8 +23,6 @@ axiosInstance.interceptors.request.use(
     // TODO 比如 loading 等
     const token = window.localStorage.getItem('token')
     config.headers!.Authorization = token as string
-    removePending(config)
-    addPending(config)
     NProgress.start()
     return config;
   },

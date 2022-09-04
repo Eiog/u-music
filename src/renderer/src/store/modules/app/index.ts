@@ -9,13 +9,15 @@ export const useAppStore = defineStore(
     const account = ref<StatusResult['account']>()
     const profile = ref<StatusResult['profile']>()
     const cookie = ref('')
+    const playerShow = ref(false)
     return {
       count,
       closeByMini,
       sideCollapsed,
       account,
       profile,
-      cookie
+      cookie,
+      playerShow
     }
   },
   {

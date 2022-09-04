@@ -7,7 +7,7 @@
           bg="white"
           flex="~ col 1"
           rounded-xl
-          p="2"
+          p="5"
           :is="Component"
         ></component>
       </transition>
