@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import Fm from '@@/views/fm/fm.vue'
+const Fm = () => import('@@/views/fm/fm.vue')
 const routes: RouteRecordRaw[] = [
   {
     path: '/fm',

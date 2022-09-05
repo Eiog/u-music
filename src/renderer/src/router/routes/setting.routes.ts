@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import Setting from '@@/views/setting/setting.vue'
+const Setting = () => import('@@/views/setting/setting.vue')
 const routes: RouteRecordRaw[] = [
   {
     path: '/setting',

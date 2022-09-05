@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import Video from '@@/views/video/video.vue'
+const Video = () => import('@@/views/video/video.vue')
 const routes: RouteRecordRaw[] = [
   {
     path: '/video',
