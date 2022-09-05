@@ -1,5 +1,5 @@
 <script setup lang="ts" name="">
-import { DataTableColumns, NButton, NTag } from 'naive-ui';
+import { DataTableColumns, NButton, NTag, RowData } from 'naive-ui';
 import { SearchType } from '@@/api';
 import { usePlayerStore } from '@@/store';
 const { play } = usePlayerStore();
@@ -124,6 +124,13 @@ const columns: DataTableColumns<Song> = [
     },
   },
 ];
+const rowProps = (row: RowData) => {
+  return {
+    ondblclick: () => {
+      play(row.id);
+    },
+  };
+};
 const handlePlay = (song: Song) => {
   console.log(song);
   play(song.id);
@@ -136,6 +143,7 @@ const handleAddPlayList = (song: Song) => {};
       :style="{ height: '100%' }"
       flex-height
       size="small"
+      :row-props="rowProps"
       :columns="columns"
       :data="props.data"
       :loading="props.loading"

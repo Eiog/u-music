@@ -24,6 +24,7 @@ const handleSearch = async () => {
       : songs;
     searchResultCount.value = songCount;
   } catch (error) {
+    window.$message.error('err');
     loading.value = false;
   }
 };
@@ -58,7 +59,7 @@ const isEnd = computed(() => {
 <template>
   <div flex="~ col 1" gap="3" p="8">
     <div flex="~" items="center">
-      <h1 text="xl" font="light" m="y-2">
+      <h1 text="xl" font="light">
         搜索 <strong font="medium">{{ searchValue }}</strong> 找到
         <strong text="rose-500" font="medium">{{ searchResultCount }}</strong>
         条结果

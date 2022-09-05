@@ -1,5 +1,5 @@
 <script setup lang="ts" name="">
-import { DropdownOption } from 'naive-ui';
+import { DropdownOption, InputProps } from 'naive-ui';
 import { searchApi } from '@@/api';
 const router = useRouter();
 const inputValue = ref('');
@@ -8,11 +8,13 @@ const loading = ref(false);
 const options = ref<DropdownOption[]>([]);
 const hotSearchCache = ref<DropdownOption[]>([]);
 const handleSelect = (key: string) => {
-  router.push(`/search/${key}`);
   showDropdown.value = false;
   inputValue.value = key;
+  handleSearch();
 };
-
+const handleSearch = () => {
+  router.push(`/search/${inputValue.value}`);
+};
 const handleHotSearch = () => {
   if (hotSearchCache.value.length > 0) {
     options.value = hotSearchCache.value;
@@ -36,14 +38,19 @@ const handleSelectOutside = () => {
 };
 const handleVagueSearch = useDebounceFn((val: string) => {
   loading.value = true;
-  searchApi.vagueSearch(val).then((res) => {
-    let result: { key: string; label: string }[] = [];
-    res.songs.forEach((item) => {
-      result.push({ key: item.name, label: item.name });
+  searchApi
+    .vagueSearch(val)
+    .then((res) => {
+      let result: { key: string; label: string }[] = [];
+      res.songs.forEach((item) => {
+        result.push({ key: item.name, label: item.name });
+      });
+      options.value = result;
+      loading.value = false;
+    })
+    .catch(() => {
+      loading.value = false;
     });
-    options.value = result;
-    loading.value = false;
-  });
 }, 1000);
 
 const handleFocus = () => {
@@ -51,6 +58,9 @@ const handleFocus = () => {
     ? handleHotSearch()
     : handleVagueSearch(inputValue.value);
   showDropdown.value = true;
+};
+const handleUpdateValue = (val: string) => {
+  val === '' ? handleHotSearch() : handleVagueSearch(inputValue.value);
 };
 const renderLabel = (option: DropdownOption) => {
   return h(
@@ -62,6 +72,9 @@ const renderLabel = (option: DropdownOption) => {
     },
     { default: () => option.label },
   );
+};
+const handleKeyUp = () => {
+  handleSearch();
 };
 </script>
 <template>
@@ -79,7 +92,8 @@ const renderLabel = (option: DropdownOption) => {
       round
       placeholder="搜索"
       @focus="handleFocus"
-      @input="handleVagueSearch"
+      @update:value="handleUpdateValue"
+      @keyup.enter="handleKeyUp"
     >
       <template #prefix>
         <i i-ri-search-2-line></i>

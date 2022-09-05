@@ -5,6 +5,7 @@ import Main from './Main.vue';
 import Footer from './Footer.vue';
 import Player from './components/Player.vue';
 import BackdropBlur from './components/BackdropBlur.vue';
+import PlayerList from './components/PlayerList.vue';
 import Audio from './components/Audio.vue';
 import { useAppStore } from '@@/store';
 const appStore = useAppStore();
@@ -23,7 +24,8 @@ const appStore = useAppStore();
     </div>
     <Footer h="20" bg="white" z="1" transition="all" />
   </div>
-  <Player z="2" v-model:show="appStore.playerShow" />
+  <Player z="2" />
   <Audio />
+  <PlayerList />
 </template>
 <style scoped lang="less"></style>

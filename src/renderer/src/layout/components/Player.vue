@@ -1,49 +1,58 @@
 <script setup lang="ts" name="">
-import { useAppStore } from '@@/store';
+import { useAppStore, usePlayerStore } from '@@/store';
 import PlayerMini from './PlayerMini.vue';
 import PlayerCover from './PlayerCover.vue';
 import PlayerLyric from './PlayerLyric.vue';
 import PlayerRec from './PlayerRec.vue';
-const appStore = useAppStore();
-type Props = {
-  show: boolean;
-};
-type Emit = {
-  (e: 'update:show', show: boolean): void;
-};
-const props = defineProps<Props>();
-const emit = defineEmits<Emit>();
-const _show = ref(props.show);
-watch(
-  () => props.show,
-  (show) => {
-    _show.value = show;
-    emit('update:show', _show.value);
-  },
-);
-const _showClass = computed(() => {
-  return _show.value
+const { playerShow } = storeToRefs(useAppStore());
+const { song } = storeToRefs(usePlayerStore());
+const showClass = computed(() => {
+  return playerShow.value
     ? `visible opacity-100 translate-y-0`
     : `invisible opacity-0 translate-y-100%`;
 });
 </script>
 <template>
   <div
+    v-if="song"
     fixed
     left="0"
     top="14"
     right="0"
     bottom="0"
+    bg="opacity-50 white"
     flex="~ col 1"
-    bg="opacity-40 white"
     transition="all duration-300 ease-in-out"
     class="z-999 backdrop-blur-xl"
-    :class="_showClass"
+    :class="showClass"
   >
+    <div
+      absolute
+      w="full"
+      h="full"
+      z="-1"
+      class="bg-linear backdrop-blur-3xl backdrop-saturate-50 backdrop-brightness-110"
+    ></div>
+    <img
+      absolute
+      w="full"
+      h="full"
+      class="object-full"
+      z="-2"
+      :src="song.al.picUrl"
+    />
     <main flex="~ col 1">
-      <div flex="~ col">
-        <h1></h1>
-        <p></p>
+      <div flex="~ col" items="center" gap="1" m="t-3">
+        <h1 text="3xl">
+          <span>{{ song.name }}</span>
+        </h1>
+        <p text="sm">
+          <span v-for="(item, index) in song.ar" :key="index">
+            {{ item.name }}
+          </span>
+          -
+          <span>{{ song.al.name }}</span>
+        </p>
       </div>
       <div flex="~ 1">
         <PlayerCover w="1/3" />
@@ -56,4 +65,13 @@ const _showClass = computed(() => {
     </footer>
   </div>
 </template>
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.bg-linear {
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.6)
+  );
+}
+</style>

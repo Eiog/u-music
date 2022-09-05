@@ -1,34 +1,58 @@
 <script setup lang="ts" name="">
-type Props = {
-  value: number;
+import { usePlayerStore } from '@@/store';
+const { progressUpdate } = usePlayerStore();
+const { progress, _currentTime, _duration } = storeToRefs(usePlayerStore());
+const handleClick = (e: MouseEvent) => {
+  const x = e.offsetX;
+  const w = e.currentTarget!['offsetWidth'];
+  progressUpdate((x / w) * 100);
 };
-type Emit = {
-  (e: 'update:value', value: number): void;
-};
-const props = withDefaults(defineProps<Props>(), {
-  value: 0,
-});
-const emit = defineEmits<Emit>();
-const _value = ref(props.value);
-watch(
-  () => props.value,
-  (value) => {
-    _value.value = value;
-    emit('update:value', value);
-  },
-);
 </script>
 <template>
-  <div w="full" h="1" relative rounded-full overflow="hidden" bg="gray-200">
+  <div w="full" h="2" flex-center gap="3">
+    <span text="xs gray-400">{{ _currentTime }}</span>
     <div
-      absolute
-      h="1"
-      left="0"
-      top="0"
-      bg="rose-600"
-      transition="all ease-in-out"
-      :style="{ width: `${_value}%` }"
-    ></div>
+      flex="~ 1"
+      items="center"
+      h="2"
+      transition="colors"
+      bg="white hover:gray-300"
+      p=".5"
+      rounded-full
+      class="cursor-pointer group"
+      @click="handleClick($event)"
+    >
+      <span
+        relative
+        flex="~ 1"
+        bg="gray-200"
+        rounded-full
+        transition="colors"
+        group-hover="bg-gray-500"
+      >
+        <span
+          relative
+          h="1"
+          bg="rose-600"
+          transition="all ease-in-out"
+          rounded-full
+          :style="{ width: `${progress}%` }"
+        >
+          <span
+            absolute
+            inline-block
+            right="-1.5"
+            top="-1"
+            w="3"
+            h="3"
+            rounded-full
+            bg="rose-700"
+            outline="transparent 2 group-hover:gray-100"
+          ></span>
+        </span>
+      </span>
+    </div>
+    <span text="xs gray-400">{{ _duration }}</span>
   </div>
 </template>
 <style scoped lang="less"></style>

@@ -227,7 +227,7 @@ export type SearchType = {
 const vagueSearch = (val: string): Promise<SearchType['vagueSearch']> => {
     return new Promise((resolve, reject) => {
         http.get('/search/suggest', { keywords: val }).then((res: any) => {
-            if (res.code === 200 && res.result) return resolve(res.result)
+            if (res.code === 200 && Object.keys(res.result).length !== 0) return resolve(res.result)
             return reject(res)
         }).catch(err => reject(err))
     })
@@ -243,7 +243,7 @@ const hotSearch = (): Promise<SearchType['hotSearch']> => {
 const search = (keywords: string, limit?: number, offset?: number, type?: number): Promise<SearchType['searchResult']> => {
     return new Promise((resolve, reject) => {
         http.get('/cloudsearch', { keywords, limit, offset, type }).then((res: any) => {
-            if (res.code === 200) return resolve(res.result as any)
+            if (res.code === 200 && res.result) return resolve(res.result as any)
             return reject(res)
         }).catch(err => reject(err))
     })

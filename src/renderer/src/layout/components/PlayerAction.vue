@@ -1,4 +1,7 @@
-<script setup lang="ts" name=""></script>
+<script setup lang="ts" name="">
+import { useAppStore } from '@@/store';
+const { playerListShow } = storeToRefs(useAppStore());
+</script>
 <template>
   <div flex="~ 1" items="center" justify="end" gap="5" m="r-5">
     <div class="btn">
@@ -10,7 +13,7 @@
     <div class="btn">
       <i i-ri-volume-down-fill></i>
     </div>
-    <div class="btn">
+    <div class="btn" @click="playerListShow = !playerListShow">
       <i i-ri-play-list-fill></i>
     </div>
   </div>

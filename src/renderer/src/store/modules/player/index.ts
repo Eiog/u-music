@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { addPlayList } from './helps'
-import { SongType } from '@@/api'
+import { SongType, songApi } from '@@/api'
 type SongDetail = SongType['songDetail']
 export const usePlayerStore = defineStore(
     'playerStore',
@@ -14,14 +14,22 @@ export const usePlayerStore = defineStore(
         const mode = ref<'loop' | 'order' | 'repeat' | 'random'>('loop')
         const index = computed(() => list.value.findIndex(item => item.id === id.value))
         const currentTime = ref<number>(0)
+        const updateCurrentTime = ref<number | undefined>()
         const duration = ref<number>(0)
+        const _currentTime = computed(() => `${Math.floor(currentTime.value / 60).toString().padStart(2, '0')}:${(currentTime.value % 60).toString().padStart(2, '0')}`)
+        const _duration = computed(() => `${Math.floor(duration.value / 60).toString().padStart(2, '0')}:${(duration.value % 60).toString().padStart(2, '0')}`)
         const progress = computed(() => {
             return currentTime.value / duration.value * 100 | 0
         })
         const play = async (ids: number | number[]) => {
-            if (Array.isArray(ids)) {
-                list.value = []
-
+            const idIsArray = Array.isArray(ids)
+            if (!idIsArray) {
+                if (list.value.some(item => item.id === ids)) {
+                    id.value = ids
+                    url.value = (await songApi.songUrl(ids)).url
+                    playing.value = true
+                    return
+                }
             }
             try {
                 const { id: _id, url: _url } = await addPlayList(ids, list)
@@ -38,6 +46,14 @@ export const usePlayerStore = defineStore(
         const next = () => {
 
         }
+        const progressUpdate = (value: number) => {
+            updateCurrentTime.value = parseFloat((duration.value * (value / 100)).toFixed(2))
+        }
+        const clearList = () => {
+            list.value = []
+            playing.value = false
+            updateCurrentTime.value = 0
+        }
         return {
             playing,
             song,
@@ -48,11 +64,16 @@ export const usePlayerStore = defineStore(
             mode,
             index,
             currentTime,
+            updateCurrentTime,
+            _currentTime,
+            _duration,
             duration,
             progress,
             play,
             prev,
-            next
+            next,
+            progressUpdate,
+            clearList
         }
     },
     {
