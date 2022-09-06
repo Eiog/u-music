@@ -10,8 +10,9 @@ export const usePlayerStore = defineStore(
         const list = ref<SongDetail['songs']>([])
         const url = ref<string>('')
         const id = ref<number | undefined>()
-        const volume = ref<number>(1)
+        const volume = ref<number>(100)
         const mode = ref<'loop' | 'order' | 'repeat' | 'random'>('loop')
+        const modeList = ref<('loop' | 'order' | 'repeat' | 'random')[]>(['loop', 'order', 'repeat', 'random'])
         const index = computed(() => list.value.findIndex(item => item.id === id.value))
         const currentTime = ref<number>(0)
         const updateCurrentTime = ref<number | undefined>()
@@ -41,9 +42,24 @@ export const usePlayerStore = defineStore(
             }
         }
         const prev = () => {
+            switch (mode.value) {
+                case 'loop':
 
+                    break;
+
+                default:
+                    break;
+            }
         }
         const next = () => {
+
+        }
+        const changeMode = () => {
+            const index = modeList.value.findIndex(item => item === mode.value)
+            if (index >= modeList.value.length - 1) return mode.value = modeList.value[0]
+            mode.value = modeList.value[index + 1]
+        }
+        const changeVolume = (val: number) => {
 
         }
         const progressUpdate = (value: number) => {
@@ -73,7 +89,8 @@ export const usePlayerStore = defineStore(
             prev,
             next,
             progressUpdate,
-            clearList
+            clearList,
+            changeMode
         }
     },
     {

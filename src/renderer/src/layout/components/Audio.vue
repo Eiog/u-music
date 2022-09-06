@@ -23,13 +23,13 @@ const init = () => {
     volume,
     (volume) => {
       if (!audioRef.value) return;
-      audioRef.value.volume = volume;
+      audioRef.value.volume = volume / 100;
     },
     { immediate: true },
   );
   watch(updateCurrentTime, (time) => {
     if (!audioRef.value) return;
-    audioRef.value.currentTime = time;
+    audioRef.value.currentTime = time || 0;
   });
   audioRef.value.addEventListener('timeupdate', audioUpdateEvent);
   audioRef.value.addEventListener('error', audioErrEvent);
