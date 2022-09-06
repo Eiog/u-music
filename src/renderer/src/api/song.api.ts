@@ -168,6 +168,10 @@ export type SongType = {
             urlSource: number
         }
     }
+    lrc: {
+        lyric: string
+        version: number
+    }
 }
 const songDetail = (ids: string | number): Promise<SongType['songDetail']> => {
     return new Promise((resolve, reject) => {
@@ -185,7 +189,16 @@ const songUrl = (id: string | number): Promise<SongType['sontUrl']['data']> => {
         }).catch(err => reject(err))
     })
 }
+const lyric = (id: number | string): Promise<SongType['lrc']> => {
+    return new Promise((resolve, reject) => {
+        http.get('/lyric', { id }).then((res: any) => {
+            if (res.code === 200) return resolve(res.lrc)
+            return reject(res)
+        }).catch(err => reject(err))
+    })
+}
 export const songApi = {
     songDetail,
-    songUrl
+    songUrl,
+    lyric
 }

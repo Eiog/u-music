@@ -36,13 +36,45 @@ const { song, playing } = storeToRefs(usePlayerStore());
           overflow="hidden"
           shadow="xl"
         >
-          <div w="full" h="full" rounded-full overflow="hidden">
+          <div
+            w="full"
+            h="full"
+            flex-center
+            rounded-full
+            relative
+            overflow="hidden"
+          >
             <i
               v-if="!song"
               transform="scale-500"
               text="gray-500"
               i-ri-album-fill
             ></i>
+            <div
+              absolute
+              inset-0
+              flex-center
+              transition="colors"
+              bg=" opacity-0 black hover:opacity-30"
+              roundex-full
+              overflow="hidden"
+              class="cursor-pointer group"
+              :class="playing ? '' : '!bg-opacity-30'"
+              @click="playing = !playing"
+            >
+              <i
+                text="white 3xl"
+                z="1"
+                transition="opacity"
+                opacity="0"
+                group-hover="!opacity-100"
+                :class="
+                  playing
+                    ? 'i-ri-pause-fill !opacity-0'
+                    : 'i-ri-play-fill !opacity-100'
+                "
+              ></i>
+            </div>
             <img v-if="song" w="full" h="full" :src="song.al.picUrl" />
           </div>
         </div>

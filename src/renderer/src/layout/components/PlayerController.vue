@@ -1,18 +1,17 @@
 <script setup lang="ts" name="">
 import { usePlayerStore } from '@@/store';
-const playerStore = usePlayerStore();
-const { play, prev, next } = playerStore;
-const { playing } = storeToRefs(playerStore);
+const { play, prev, next } = usePlayerStore();
+const { playing } = storeToRefs(usePlayerStore());
 </script>
 <template>
   <div flex-center flex="1" gap="8">
-    <div class="btn">
+    <div class="btn" @click="prev()">
       <i i-ri-skip-back-mini-fill></i>
     </div>
     <div class="btn" transform="scale-120" @click="playing = !playing">
       <i :class="playing ? 'i-ri-pause-fill' : 'i-ri-play-fill'"></i>
     </div>
-    <div class="btn">
+    <div class="btn" @click="next()">
       <i i-ri-skip-forward-mini-fill></i>
     </div>
   </div>

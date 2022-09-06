@@ -41,9 +41,9 @@ const showClass = computed(() => {
       z="-2"
       :src="song.al.picUrl"
     />
-    <main flex="~ col 1">
+    <main flex="~ col 1 shrink-1" min-h="0">
       <div flex="~ col" items="center" gap="1" m="t-3">
-        <h1 text="3xl">
+        <h1 text="2xl">
           <span>{{ song.name }}</span>
         </h1>
         <p text="sm">
@@ -54,7 +54,10 @@ const showClass = computed(() => {
           <span>{{ song.al.name }}</span>
         </p>
       </div>
-      <div flex="~ 1">
+      <div flex="~" items="center" justify="center" p="y-1">
+        <span w="200px" h="1px" bg="gray-300"></span>
+      </div>
+      <div flex="~ shrink-1 1" min-h="0">
         <PlayerCover w="1/3" />
         <PlayerLyric w="1/3" />
         <PlayerRec w="1/3" />

@@ -9,7 +9,6 @@ type AddPlauListResult = {
 }
 export const addPlayList = async (id: number | number[], list: Ref<SongDetail['songs']>): Promise<AddPlauListResult> => {
     const isArr = Array.isArray(id)
-    if (isArr) list.value = []
     const songId = isArr ? id.join() : id.toString()
     try {
         const { songs } = await songApi.songDetail(songId)

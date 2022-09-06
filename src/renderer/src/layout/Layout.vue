@@ -26,6 +26,6 @@ const appStore = useAppStore();
   </div>
   <Player z="2" />
   <Audio />
-  <PlayerList />
+  <PlayerList z="3" />
 </template>
 <style scoped lang="less"></style>

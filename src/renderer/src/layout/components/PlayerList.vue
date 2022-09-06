@@ -2,7 +2,7 @@
 import { usePlayerStore } from '@@/store';
 import { useAppStore } from '@@/store';
 const { list, index: currentIndex } = storeToRefs(usePlayerStore());
-const { clearList } = usePlayerStore();
+const { clearList, play } = usePlayerStore();
 const { playerListShow } = storeToRefs(useAppStore());
 const target = ref<HTMLElement | null>(null);
 onClickOutside(target, () => {
@@ -23,6 +23,7 @@ onClickOutside(target, () => {
     shadow="xl"
     bg="opacity-60 white"
     transition="all duration-300 ease-in-out"
+    rounded-l-xl
     class="backdrop-blur-xl"
     :class="
       playerListShow
@@ -58,6 +59,7 @@ onClickOutside(target, () => {
           :class="currentIndex === index ? 'bg-gray-200 !text-rose-500' : ''"
           v-for="(item, index) in list"
           :key="index"
+          @dblclick="play(item.id)"
         >
           <div w="5" flex-center>
             <span v-if="currentIndex !== index">{{ index + 1 }}</span>

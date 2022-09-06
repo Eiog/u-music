@@ -1,6 +1,8 @@
 <script setup lang="ts" name="">
 import { searchApi, SearchType } from '@@/api';
+import { usePlayerStore } from '@@/store';
 import SongTable from './components/SongTable.vue';
+const { play } = usePlayerStore();
 const searchResult = ref<SearchType['searchResult']['songs']>();
 const searchResultCount = ref<number>(0);
 const limit = ref(30);
@@ -55,6 +57,10 @@ const prefixCount = computed(() => {
 const isEnd = computed(() => {
   return page.value === pageCount.value;
 });
+const handlePlayCurrentPage = () => {
+  if (!searchResult.value) return;
+  play(searchResult.value.map((item) => item.id));
+};
 </script>
 <template>
   <div flex="~ col 1" gap="3" p="8">
@@ -65,10 +71,10 @@ const isEnd = computed(() => {
         条结果
       </h1>
       <div flex-center m="l-auto">
-        <n-button round secondary strong @click="">
+        <n-button round secondary strong @click="handlePlayCurrentPage">
           <div flex-center>
             <i i-ri-play-fill></i>
-            <span>播放全部</span>
+            <span>播放当前页</span>
           </div>
         </n-button>
       </div>

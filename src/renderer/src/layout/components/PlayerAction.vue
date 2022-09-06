@@ -1,5 +1,6 @@
 <script setup lang="ts" name="">
 import { useAppStore, usePlayerStore } from '@@/store';
+import PlayerVolume from './PlayerVolume.vue';
 const { playerListShow } = storeToRefs(useAppStore());
 const { mode } = storeToRefs(usePlayerStore());
 const { changeMode } = usePlayerStore();
@@ -29,9 +30,7 @@ const modeIcon = computed(() => {
     <div class="btn">
       <i i-ri-hq-fill></i>
     </div>
-    <div class="btn">
-      <i i-ri-volume-down-fill></i>
-    </div>
+    <PlayerVolume />
     <div class="btn" @click="playerListShow = !playerListShow">
       <i i-ri-play-list-fill></i>
     </div>

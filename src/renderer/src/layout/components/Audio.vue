@@ -2,6 +2,7 @@
 import { usePlayerStore } from '@@/store';
 const { playing, url, currentTime, updateCurrentTime, duration, volume } =
   storeToRefs(usePlayerStore());
+const { next } = usePlayerStore();
 const audioRef = ref<HTMLAudioElement | null>(null);
 const audioUpdateEvent = (e: Event) => {
   currentTime.value = e.target!['currentTime'] | 0;
@@ -12,6 +13,7 @@ const audioErrEvent = (e) => {
 };
 const audioEndedEvent = (e) => {
   playing.value = false;
+  next(true);
 };
 const init = () => {
   if (!audioRef.value) return;
