@@ -41,6 +41,7 @@ const pageCount = computed(() => {
 watch(
   () => route.params.value,
   (val) => {
+    if (val === '') return;
     searchValue.value = val as string;
     page.value = 1;
     handleSearch();

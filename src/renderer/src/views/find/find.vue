@@ -1,5 +1,9 @@
-<script setup lang="ts" name=""></script>
+<script setup lang="ts" name="">
+import Banner from './components/Banner.vue';
+</script>
 <template>
-  <div>find</div>
+  <div flex="~ col">
+    <Banner />
+  </div>
 </template>
 <style scoped lang="less"></style>

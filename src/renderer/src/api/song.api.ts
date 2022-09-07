@@ -173,7 +173,7 @@ export type SongType = {
         version: number
     }
 }
-const songDetail = (ids: string | number): Promise<SongType['songDetail']> => {
+const detail = (ids: string | number): Promise<SongType['songDetail']> => {
     return new Promise((resolve, reject) => {
         http.get('/song/detail', { ids }).then((res: any) => {
             if (res.code === 200) return resolve(res)
@@ -181,7 +181,7 @@ const songDetail = (ids: string | number): Promise<SongType['songDetail']> => {
         }).catch(err => reject(err))
     })
 }
-const songUrl = (id: string | number): Promise<SongType['sontUrl']['data']> => {
+const url = (id: string | number): Promise<SongType['sontUrl']['data']> => {
     return new Promise((resolve, reject) => {
         http.get('/song/url', { id }).then((res: any) => {
             if (res.code === 200) return resolve(res.data[0])
@@ -189,6 +189,15 @@ const songUrl = (id: string | number): Promise<SongType['sontUrl']['data']> => {
         }).catch(err => reject(err))
     })
 }
+const check = (id: string | number): Promise<SongType['sontUrl']['data']> => {
+    return new Promise((resolve, reject) => {
+        http.get('/check/music', { id }).then((res: any) => {
+            if (res.success) return resolve(res)
+            return reject(res)
+        }).catch(err => reject(err))
+    })
+}
+
 const lyric = (id: number | string): Promise<SongType['lrc']> => {
     return new Promise((resolve, reject) => {
         http.get('/lyric', { id }).then((res: any) => {
@@ -198,7 +207,8 @@ const lyric = (id: number | string): Promise<SongType['lrc']> => {
     })
 }
 export const songApi = {
-    songDetail,
-    songUrl,
-    lyric
+    detail,
+    url,
+    lyric,
+    check
 }

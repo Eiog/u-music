@@ -1,23 +1,14 @@
 <script setup lang="ts" name="">
-import { DropdownOption, NButton } from 'naive-ui';
+import { NButton } from 'naive-ui';
 import LoginPanel from './LoginPanel.vue';
 import { useAppStore } from '@@/store';
 import { loginApi } from '@@/api';
 const { profile } = storeToRefs(useAppStore());
-
-const options: DropdownOption[] = [
-  {
-    key: 'logout',
-    label: '退出登录',
-    props: {
-      onClick: () => {
-        loginApi.logOut().then(() => {
-          window.$message.success('退出登录');
-        });
-      },
-    },
-  },
-];
+const handleLogOut = () => {
+  loginApi.logOut().then(() => {
+    window.$message.success('退出登录');
+  });
+};
 const handleRenderLoginWindow = () => {
   window.$dialog.create({
     title: '登录',
@@ -31,13 +22,31 @@ const handleRenderLoginWindow = () => {
   <n-button secondary v-if="!profile" @click="handleRenderLoginWindow">
     登录
   </n-button>
-  <n-dropdown :options="options" v-if="profile">
-    <div flex-center gap="3">
-      <n-avatar class="cursor-pointer" round :src="profile.avatarUrl" />
-      <n-ellipsis style="max-width: 60px" class="cursor-pointer">
-        {{ profile.nickname }}
-      </n-ellipsis>
+  <n-popover trigger="click" v-if="profile">
+    <template #trigger>
+      <div flex-center gap="3">
+        <n-avatar class="cursor-pointer" round :src="profile.avatarUrl" />
+        <n-ellipsis style="max-width: 80px" class="cursor-pointer">
+          {{ profile.nickname }}
+        </n-ellipsis>
+      </div>
+    </template>
+    <div w="220px" h="300px" flex="~ col">
+      <div
+        flex="~"
+        items="center"
+        gap="1"
+        cursor="pointer"
+        bg="white hover:gray-1"
+        transition="colors"
+        p="2"
+        rounded="md"
+        @click="handleLogOut"
+      >
+        <i i-ri-logout-circle-r-line></i>
+        <span>退出登录</span>
+      </div>
     </div>
-  </n-dropdown>
+  </n-popover>
 </template>
 <style scoped lang="less"></style>

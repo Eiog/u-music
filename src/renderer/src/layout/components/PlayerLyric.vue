@@ -1,17 +1,16 @@
 <script setup lang="ts" name="">
 import { ScrollbarInst } from 'naive-ui';
 import { usePlayerStore } from '@@/store';
-import { songApi, SongType } from '@@/api';
+import { songApi } from '@@/api';
 const scrollbarRef = ref<ScrollbarInst>();
 const domRef = ref<HTMLElement | null>(null);
-const { width, height } = useElementSize(domRef);
+const { height } = useElementSize(domRef);
 const { id, progress, currentTime } = storeToRefs(usePlayerStore());
 const lyricResult = ref<string>('');
 const lyric = ref<{ time: number; text: string }[]>([]);
 const initLyric = async (id: number | string) => {
   lyricResult.value = (await songApi.lyric(id)).lyric;
   lyric.value = formatLyric(lyricResult.value);
-  console.log(lyric.value);
 };
 watch(
   id,
@@ -45,6 +44,7 @@ const currentLyricIndex = computed(() => {
   let _index: number | undefined = undefined;
   lyric.value.forEach((item, index, arr) => {
     if (
+      item.time &&
       currentTime.value >= item.time &&
       currentTime.value < arr[index + 1].time
     )

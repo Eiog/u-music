@@ -11,9 +11,9 @@ export const addPlayList = async (id: number | number[], list: Ref<SongDetail['s
     const isArr = Array.isArray(id)
     const songId = isArr ? id.join() : id.toString()
     try {
-        const { songs } = await songApi.songDetail(songId)
+        const { songs } = await songApi.detail(songId)
         list.value.push(...songs)
-        const song = await songApi.songUrl(isArr ? songId.split(',')[0] : songId)
+        const song = await songApi.url(isArr ? songId.split(',')[0] : songId)
         return {
             id: song.id,
             url: song.url,

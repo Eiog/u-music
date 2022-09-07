@@ -31,7 +31,7 @@ export const usePlayerStore = defineStore(
                     id.value = ids
                     playing.value = false
                     url.value = ''
-                    url.value = (await songApi.songUrl(ids)).url
+                    url.value = (await songApi.url(ids)).url
                     playing.value = true
                     return
                 }
@@ -140,7 +140,7 @@ export const usePlayerStore = defineStore(
     {
         persist: {
             key: '__player__',
-            paths: ['replaceList', 'volume', 'mode']
+            paths: ['replaceList', 'volume', 'mode', 'list', 'id', 'currentTime', 'duration', 'url',]
         }
     }
 )
