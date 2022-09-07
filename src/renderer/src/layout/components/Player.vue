@@ -20,7 +20,7 @@ const showClass = computed(() => {
     top="14"
     right="0"
     bottom="0"
-    bg="opacity-50 white"
+    bg="opacity-30 white dark:dark-8"
     flex="~ col 1"
     transition="all duration-300 ease-in-out"
     class="z-999 backdrop-blur-xl"
@@ -76,5 +76,15 @@ const showClass = computed(() => {
     rgba(255, 255, 255, 0.7),
     rgba(255, 255, 255, 0.6)
   );
+}
+.dark {
+  .bg-linear {
+    background-image: linear-gradient(
+      to top,
+      rgb(0, 0, 0),
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.6)
+    );
+  }
 }
 </style>

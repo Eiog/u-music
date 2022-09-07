@@ -1,22 +1,33 @@
-import { app, App, shell, BrowserWindow, ipcMain } from 'electron'
-import useTray from './useTray'
-const useIpcMain = (app: App, mainWindow: BrowserWindow) => {
-    ipcMain.on('mini-window', () => {
-        mainWindow?.minimize()
+import { app, App, shell, BrowserWindow, ipcMain, IpcMainEvent, IpcMain, Tray } from 'electron'
+
+const windowIpc = (mainWindow: BrowserWindow) => {
+    ipcMain.on('window-hide', () => {
+        mainWindow.hide()
     })
-    ipcMain.on('hide-window', () => {
-        const { setTray } = useTray(app, mainWindow)
-        setTray()
+    ipcMain.on('window-screen-min', () => {
+        mainWindow.minimize()
     })
-    ipcMain.on('close-window', () => {
-        app.quit()
+    ipcMain.on('window-screen-full', () => {
+        mainWindow.setFullScreen(true)
     })
-    ipcMain.on('full-screen', (event, val) => {
-        mainWindow.setFullScreen(val)
-        event.returnValue = mainWindow.fullScreen
+    ipcMain.on('window-screen-exitfull', () => {
+        mainWindow.setFullScreen(true)
     })
-    ipcMain.on('full-screen-toggle', () => {
+    ipcMain.on('window-screen-toggle', () => {
         mainWindow.setFullScreen(!mainWindow.fullScreen)
     })
+}
+const appIpc = (app: App) => {
+    ipcMain.on('app-quit', () => {
+        app.quit()
+    })
+}
+const trayIpc = (tray: Tray) => {
+
+}
+const useIpcMain = (app: App, mainWindow: BrowserWindow, tray: Tray) => {
+    windowIpc(mainWindow)
+    appIpc(app)
+    trayIpc(tray)
 }
 export default useIpcMain

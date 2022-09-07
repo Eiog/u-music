@@ -1,6 +1,7 @@
 <script setup lang="ts" name="">
-import { usePlayerStore } from '@@/store';
+import { usePlayerStore, useAppStore } from '@@/store';
 const { progressUpdate } = usePlayerStore();
+const { themeColor } = storeToRefs(useAppStore());
 const { progress, _currentTime, _duration } = storeToRefs(usePlayerStore());
 const handleClick = (e: MouseEvent) => {
   const x = e.offsetX;
@@ -16,7 +17,7 @@ const handleClick = (e: MouseEvent) => {
       items="center"
       h="2"
       transition="colors"
-      bg="white hover:gray-300"
+      bg="white hover:gray-300 dark:(dark-1 hover:dark-2)"
       p=".5"
       rounded-full
       class="cursor-pointer group"
@@ -35,8 +36,11 @@ const handleClick = (e: MouseEvent) => {
           h="1"
           bg="rose-600"
           transition="all ease-in-out"
-          rounded-full
-          :style="{ width: `${progress}%` }"
+          rounded="full"
+          :style="{
+            width: `${progress}%`,
+            backgroundColor: `${themeColor.primary}`,
+          }"
         >
           <span
             absolute
@@ -48,6 +52,7 @@ const handleClick = (e: MouseEvent) => {
             rounded-full
             bg="rose-700"
             outline="transparent 2 group-hover:gray-100"
+            :style="{ backgroundColor: `${themeColor.primary}` }"
           ></span>
         </span>
       </span>

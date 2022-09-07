@@ -1,47 +1,12 @@
 <script setup lang="ts" name="">
 import { useAppStore } from '@@/store';
-import { NCheckbox } from 'naive-ui';
 import UserDropdown from './components/UserDropdown.vue';
 import Search from './components/Search.vue';
 import Brand from './components/Brand.vue';
+import ToggleTheme from './components/ToggleTheme.vue';
+import { windowIpc } from '@@/ipc';
+const { darkMode } = storeToRefs(useAppStore());
 const router = useRouter();
-const appStore = useAppStore();
-const handleClose = () => {
-  if (appStore.closeByMini === true)
-    return window.electron.ipcRenderer.send('hide-window');
-  if (appStore.closeByMini === false)
-    return window.electron.ipcRenderer.send('close-window');
-  if (appStore.closeByMini === undefined)
-    return window.$dialog.create({
-      title: '设置关闭按钮',
-      positiveText: '关闭',
-      negativeText: '最小化',
-      content: () => {
-        return h(
-          NCheckbox,
-          {
-            checked: appStore.closeByMini,
-            onUpdateChecked: (val: boolean) => {
-              appStore.closeByMini = val;
-            },
-          },
-          { default: () => '记住选择' },
-        );
-      },
-      onPositiveClick: () => {
-        window.electron.ipcRenderer.send('close-window');
-      },
-      onNegativeClick: () => {
-        window.electron.ipcRenderer.send('hide-window');
-      },
-    });
-};
-const handleMiniApp = () => {
-  window.electron.ipcRenderer.send('mini-window');
-};
-const handleFullscreen = () => {
-  window.electron.ipcRenderer.send('full-screen-toggle');
-};
 </script>
 <template>
   <header flex="~">
@@ -61,16 +26,20 @@ const handleFullscreen = () => {
       <user-dropdown />
     </div>
     <div m="l-5" flex-center gap="3" p="x-3">
+      <n-button secondary circle strong @click="darkMode = !darkMode">
+        <i :class="darkMode ? 'i-ri-moon-fill' : 'i-ri-sun-fill'"></i>
+      </n-button>
+      <ToggleTheme />
       <n-button secondary circle strong @click="router.push('/setting')">
         <i i-ri-settings-4-line></i>
       </n-button>
-      <n-button secondary circle strong @click="handleMiniApp">
+      <n-button secondary circle strong @click="windowIpc.miniScreen()">
         <i i-ri-subtract-fill></i>
       </n-button>
-      <n-button secondary circle strong @click="handleFullscreen">
+      <n-button secondary circle strong @click="windowIpc.fullscreenToggle()">
         <i i-ri-fullscreen-fill></i>
       </n-button>
-      <n-button secondary circle strong @click="handleClose">
+      <n-button secondary circle strong @click="windowIpc.hideWindow()">
         <i i-ri-close-fill></i>
       </n-button>
     </div>

@@ -21,7 +21,7 @@ onClickOutside(target, () => {
     p="t-3"
     w="1/3"
     shadow="xl"
-    bg="opacity-60 white"
+    bg="opacity-30 white dark:dark-5"
     transition="all duration-300 ease-in-out"
     rounded-l-xl
     class="backdrop-blur-xl"
@@ -51,7 +51,7 @@ onClickOutside(target, () => {
           flex="~"
           items="center"
           transition="colors"
-          bg="gray-100 hover:gray-200 active:gray-300"
+          bg="gray-100 hover:gray-200 active:gray-300 dark:(dark-3 hover:dark-2 active:dark-5)"
           p="1"
           text="sm gray-800"
           rounded-md

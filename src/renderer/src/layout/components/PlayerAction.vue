@@ -38,6 +38,6 @@ const modeIcon = computed(() => {
 </template>
 <style scoped lang="less">
 .btn {
-  @apply cursor-pointer text-black transition-opacity text-opacity-60 hover:text-opacity-80 active:text-opacity-100;
+  @apply cursor-pointer text-black transition-opacity text-opacity-60 hover:text-opacity-80 active:text-opacity-100 dark:(text-white);
 }
 </style>

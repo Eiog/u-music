@@ -2,10 +2,10 @@
 import autoAnimate from '@formkit/auto-animate';
 const router = useRouter();
 const route = useRoute();
-const _path = ref('');
+const currentPath = ref('');
 watch(
   () => route.path,
-  (path) => (_path.value = path),
+  (path) => (currentPath.value = path),
 );
 const domRef = ref<HTMLElement[]>();
 type Props = {
@@ -43,24 +43,25 @@ onMounted(() => {
       p="x2"
       h="10"
       flex-center
-      text="gray-600"
+      text="gray-600 dark:gray-1"
       class="cursor-pointer"
       v-for="(item, index) in menu"
       :key="index"
     >
       <div
         transition="colors"
-        bg="hover:gray-100 active:gray-100"
+        bg="hover:(gray-100 dark:dark-3) active:(gray-100 dark:dark-5) "
         rounded-md
         h="10"
+        w="full"
         flex="~"
         items="center"
         gap2
         px2
         class="select-none"
         :class="[
-          props.collapsed ? 'w-10 justify-center' : 'w-full',
-          _path === item.path ? 'bg-gray-100 text-lg' : 'text-base',
+          props.collapsed ? 'collapsed' : '',
+          currentPath === item.path ? 'active' : 'text-base',
         ]"
         ref="domRef"
         @click="router.push(item.path)"
@@ -73,4 +74,11 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.collapsed {
+  @apply w-10 justify-center;
+}
+.active {
+  @apply bg-gray-1 text-lg dark:bg-dark-3;
+}
+</style>

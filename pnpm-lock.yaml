@@ -16,6 +16,7 @@ specifiers:
   '@vueuse/core': ^9.1.1
   autoprefixer: ^10.4.8
   axios: ^0.27.2
+  colord: ^2.9.3
   electron: ^19.0.14
   electron-builder: ^22.14.13
   electron-notarize: ^1.2.1
@@ -48,6 +49,7 @@ dependencies:
   '@unocss/reset': 0.45.14
   '@vueuse/core': 9.1.1_vue@3.2.38
   axios: 0.27.2
+  colord: 2.9.3
   electron-store: 8.1.0
   electron-updater: 4.6.5
   nprogress: 0.2.0
@@ -1413,6 +1415,10 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /colord/2.9.3:
+    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
+    dev: false
 
   /colorette/2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}

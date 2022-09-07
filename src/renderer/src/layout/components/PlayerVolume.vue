@@ -31,12 +31,12 @@ const handleVolumeClick = (e: MouseEvent) => {
         <i i-ri-volume-down-fill></i>
       </div>
     </template>
-    <div w="full" h="full" bg="white" px="2" flex-center rounded-xl>
+    <div w="full" h="full" bg="white dark:dark-1" px="2" flex-center rounded-xl>
       <div
         w="full"
         h="10px"
         transition="colors"
-        bg="white hover:gray-200"
+        bg="white hover:gray-200 dark:(dark-3 hover:dark-5)"
         rounded-full
         flex-center
         px="1"
@@ -47,8 +47,8 @@ const handleVolumeClick = (e: MouseEvent) => {
           w="full"
           h="4px"
           transition="colors"
-          bg="gray-200"
-          group-hover="bg-white"
+          bg="gray-200 dark:dark-3"
+          group-hover="bg-white dark:bg-dark-3"
           rounded-full
           relative
           class="pointer-events-none"
@@ -80,6 +80,6 @@ const handleVolumeClick = (e: MouseEvent) => {
 </template>
 <style scoped lang="less">
 .btn {
-  @apply cursor-pointer text-black transition-opacity text-opacity-60 hover:text-opacity-80 active:text-opacity-100;
+  @apply cursor-pointer text-black transition-opacity text-opacity-60 hover:text-opacity-80 active:text-opacity-100 dark:(text-white);
 }
 </style>

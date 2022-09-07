@@ -4,7 +4,7 @@
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <component
-          bg="white"
+          bg="white dark:dark-6"
           flex="~ col 1"
           rounded-md
           p="5"

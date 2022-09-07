@@ -3,21 +3,22 @@ import { ipcMain } from 'electron'
 
 const useStore = () => {
     const store = new Store()
-    ipcMain.on('getStore', async (event, value) => {
+    ipcMain.on('store-get', async (event, value) => {
         event.returnValue = store.get(value) || []
     })
-    ipcMain.on('setStore', async (event, key, value) => {
+    ipcMain.on('store-set', async (event, key, value) => {
         store.set(key, value)
     })
-    ipcMain.on('hasStore', async (event, key) => {
+    ipcMain.on('store-has', async (event, key) => {
         event.returnValue = store.has(key)
     })
-    ipcMain.on('deleteStore', async (event, key) => {
+    ipcMain.on('store-delete', async (event, key) => {
         store.delete(key)
     })
-    ipcMain.on('clearStore', async (event) => {
+    ipcMain.on('store-clear', async (event) => {
         store.clear()
     })
+    return store
 
 }
 export default useStore

@@ -18,6 +18,6 @@ const { playing } = storeToRefs(usePlayerStore());
 </template>
 <style scoped lang="less">
 .btn {
-  @apply rounded-full cursor-pointer flex bg-gray-100 h-8 text-black transition-opacity transition-colors text-opacity-60 text-2xl w-8 items-center justify-center hover:(bg-gray-200 text-opacity-80) active:(bg-gray-300 text-opacity-100) ;
+  @apply rounded-full cursor-pointer flex bg-gray-100 h-8 text-black transition-opacity transition-colors text-opacity-60 text-2xl w-8 items-center justify-center hover:(bg-gray-200 text-opacity-80) active:(bg-gray-300 text-opacity-100) dark:(bg-dark-3 text-gray-1 hover:bg-dark-1 active:bg-dark-2);
 }
 </style>

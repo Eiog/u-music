@@ -24,6 +24,7 @@
     "@unocss/reset": "^0.45.14",
     "@vueuse/core": "^9.1.1",
     "axios": "^0.27.2",
+    "colord": "^2.9.3",
     "electron-store": "^8.1.0",
     "electron-updater": "^4.6.5",
     "nprogress": "^0.2.0",

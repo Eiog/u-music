@@ -18,7 +18,7 @@ const { song, list, progress, _currentTime, _duration } = storeToRefs(
       top="0"
       right="0"
       bottom="0"
-      bg="opacity-50 white"
+      bg="opacity-50 white dark:dark-8"
       z="1"
     ></div>
     <PlayerProgress
