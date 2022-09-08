@@ -1,5 +1,5 @@
 <script setup lang="ts" name="">
-import ToggleCollapsed from './components/toggleCollapsed.vue';
+import ToggleCollapsed from './components/ToggleCollapsed.vue';
 import AsideMenu from './components/AsideMenu.vue';
 import { useAppStore } from '@@/store';
 const appStore = useAppStore();

@@ -45,7 +45,18 @@ export default defineConfig({
           /\.vue$/,
           /\.vue\?vue/ // .vue
         ],
-        imports: ['vue', '@vueuse/core', 'pinia', 'vue-router'],
+        imports: ['vue',
+          '@vueuse/core',
+          'pinia',
+          'vue-router',
+          {
+            'naive-ui': [
+              'useDialog',
+              'useMessage',
+              'useNotification',
+              'useLoadingBar'
+            ]
+          }],
         dirs: ['src/hooks', 'src/utils', 'src/api'],
         dts: 'src/typings/auto-import.d.ts'
       })

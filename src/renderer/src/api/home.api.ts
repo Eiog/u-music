@@ -27,6 +27,15 @@ export type HomeType = {
         url: null
         video: null
     }[]
+    ball: {
+        homepageMode: string
+        iconUrl: string
+        id: number
+        name: string
+        resourceState: null
+        skinSupport: true
+        url: string
+    }[]
 }
 const banner = (type: number = 0): Promise<HomeType['banner']> => {
     return new Promise((resolve, reject) => {
@@ -43,11 +52,12 @@ const find = (refresh: boolean = false) => {
         })
     })
 }
-const findBall = () => {
+const findBall = (): Promise<HomeType['ball']> => {
     return new Promise((resolve, reject) => {
         http.get(`/homepage/dragon/ball`).then((res: any) => {
-            console.log(res);
-        })
+            if (res.code === 200) return resolve(res.data)
+            return reject(res)
+        }).catch(err => reject(err))
     })
 }
 export const homeApi = {

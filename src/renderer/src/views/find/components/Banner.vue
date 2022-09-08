@@ -13,30 +13,31 @@ const init = async () => {
 init();
 </script>
 <template>
-  <div w="full" h="240px" overflow="hidden" rounded="xl">
+  <div w540px h210px overflow-hidden rounded-xl>
     <n-carousel show-arrow draggable dot-type="line">
       <div
         relative
-        w="full"
-        h="full"
-        cursor="pointer"
+        w540px
+        h210px
+        cursor-pointer
         v-for="(item, index) in banner"
         :key="index"
         @click="play(item.targetId)"
       >
         <span
           absolute
-          left="0"
-          top="0"
+          left-0
+          top-0
+          px2
+          py1
           bg="red-6/60"
           select="none"
           rounded="rb-lg"
-          p="x2 y1"
           text="white"
         >
           {{ item.typeTitle }}
         </span>
-        <img w="full" h="full" object-cover :src="item.imageUrl" />
+        <img wfull hfull object-cover :src="item.imageUrl" />
       </div>
     </n-carousel>
   </div>
