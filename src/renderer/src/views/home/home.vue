@@ -1,6 +1,6 @@
 <script setup lang="ts" name="">
-import HelloWorld from '@@/components/HelloWorld.vue';
-import { useAppStore } from '@@/store';
+import HelloWorld from '~/components/HelloWorld.vue';
+import { useAppStore } from '~/stores';
 const appStore = useAppStore();
 </script>
 <template>

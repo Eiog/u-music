@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import Layout from './layout/Layout.vue';
-import { NaiveProvider } from '@@/components';
-import { useAppStore } from './store';
-const { naiveThemeMode, naiveThemeOverrides } = storeToRefs(useAppStore());
+import DefaultLayout from './layouts/DefaultLayout.vue';
+import RouterEntry from './components/common/RouterEntry.vue';
+import { useAppStore } from '~/stores';
+const { darkMode } = storeToRefs(useAppStore());
 </script>
-
 <template>
-  <n-config-provider
-    abstract
-    :theme="naiveThemeMode"
-    :theme-overrides="naiveThemeOverrides"
-  >
-    <naive-provider>
-      <Layout />
-    </naive-provider>
-    <n-global-style />
-  </n-config-provider>
+  <naive-provider :dark="darkMode">
+    <DefaultLayout>
+      <RouterEntry />
+    </DefaultLayout>
+  </naive-provider>
 </template>
 
-<style lang="less"></style>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
+</style>

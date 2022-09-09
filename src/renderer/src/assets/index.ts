@@ -1,3 +1,3 @@
-export * from './css/styles.less'
-export * from './css/nprogress.css'
-export * from '@unocss/reset/eric-meyer.css'
+export * from 'uno.css';
+export * from '@unocss/reset/tailwind.css';
+export * from './css/nprogress.css';

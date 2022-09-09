@@ -1,7 +1,7 @@
 <script setup lang="ts" name="">
 import { DataTableColumns, NButton, NTag, RowData } from 'naive-ui';
-import { SearchType } from '@@/api';
-import { usePlayerStore } from '@@/store';
+import { SearchType } from '~/api';
+import { usePlayerStore } from '~/stores';
 const { play } = usePlayerStore();
 type Song = SearchType['searchResult']['songs'][0];
 type Props = {

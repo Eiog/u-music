@@ -1,6 +1,6 @@
 <script setup lang="ts" name="">
-import { homeApi, HomeType } from '@@/api';
-import { usePlayerStore } from '@@/store';
+import { homeApi, HomeType } from '~/api';
+import { usePlayerStore } from '~/stores';
 const { play } = usePlayerStore();
 const banner = ref<HomeType['banner']>();
 const init = async () => {
@@ -13,11 +13,11 @@ const init = async () => {
 init();
 </script>
 <template>
-  <div w540px h210px overflow-hidden rounded-xl>
+  <div h210px overflow-hidden rounded-xl>
     <n-carousel show-arrow draggable dot-type="line">
       <div
         relative
-        w540px
+        wfull
         h210px
         cursor-pointer
         v-for="(item, index) in banner"

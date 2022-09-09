@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { homeApi, HomeType } from '@@/api';
+import { homeApi, HomeType } from '~/api';
 const ballData = ref<HomeType['ball']>();
 const init = async () => {
   try {

@@ -1,6 +1,6 @@
 <script setup lang="ts" name="">
-import { searchApi, SearchType } from '@@/api';
-import { usePlayerStore } from '@@/store';
+import { searchApi, SearchType } from '~/api';
+import { usePlayerStore } from '~/stores';
 import SongTable from './components/SongTable.vue';
 const { play } = usePlayerStore();
 const searchResult = ref<SearchType['searchResult']['songs']>();
