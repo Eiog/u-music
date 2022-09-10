@@ -19,6 +19,7 @@ specifiers:
   autoprefixer: ^10.4.8
   axios: ^0.27.2
   colord: ^2.9.3
+  crypto-js: ^4.1.1
   electron: ^19.0.14
   electron-builder: ^23.3.3
   electron-notarize: ^1.2.1
@@ -53,6 +54,7 @@ dependencies:
   '@vueuse/core': 9.2.0_vue@3.2.39
   axios: 0.27.2
   colord: 2.9.3
+  crypto-js: 4.1.1
   electron-store: 8.1.0
   electron-updater: 5.2.1
   nprogress: 0.2.0
@@ -1682,6 +1684,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}

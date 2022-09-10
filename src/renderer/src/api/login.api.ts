@@ -73,9 +73,7 @@ const verifyPhoneCode = (phone: string, captcha: string) => {
     http
       .get('/captcha/verify', { phone, captcha })
       .then((res: any) => {
-        console.log(res);
-
-        if (res.code === 200) return resolve(res.data);
+        if (res.code === 200 && res.data) return resolve(res.data);
         return reject(false);
       })
       .catch((err) => reject(err));

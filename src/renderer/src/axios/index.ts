@@ -40,26 +40,27 @@ axiosInstance.interceptors.request.use(
 
 // 响应拦截器
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response: AxiosResponse<{ code: number; msg: string }>) => {
     NProgress.done();
     if (response.status === 200) {
       return response.data;
     }
     window.$notification.warning({
       title: response.statusText,
-      content: response.data,
+      content: response.data.msg || '错误',
     });
     return Promise.reject(response.data);
   },
-  (error: AxiosError) => {
+  (error: AxiosError<{ code: number; msg: string }>) => {
     if (error.code === 'ERR_CANCELED') {
       return false;
     }
     const { response, request } = error;
     NProgress.done();
     if (response) {
-      console.log(showCodeMessage(response.status));
-      window.$notification.error({ title: showCodeMessage(response.status) });
+      const msg = response.data.msg || '';
+      // console.log(showCodeMessage(response.status));
+      window.$notification.error({ title: msg });
       return Promise.reject(response.data);
     }
     if (request) {
