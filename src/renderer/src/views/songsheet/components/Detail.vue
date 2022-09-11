@@ -15,6 +15,18 @@ const init = async () => {
 init();
 </script>
 <template>
-  <div>{{ resData?.name }}</div>
+  <div wfull flex >
+    <div w=1/3 px5 >
+      <div wfull hauto rounded-xl overflow-hidden>
+        <img :src="resData?.coverImgUrl" alt="">
+      </div>
+    </div>
+    <div w="2/3" flex="~ col" justify-start gap2>
+      <h1 text-2xl font-bold>{{resData?.name}}</h1>
+      <n-ellipsis expand-trigger="click" line-clamp="2" :tooltip="false">
+    {{resData?.description}}
+  </n-ellipsis>
+    </div>
+  </div>
 </template>
 <style scoped lang="less"></style>

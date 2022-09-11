@@ -175,6 +175,47 @@ export type PlayListResult = {
     sharedPrivilege: null;
     urls: null;
   };
+  trackAll: {
+    code: number;
+    privileges: {
+      chargeInfoList: {
+        chargeMessage: null;
+        chargeType: 0;
+        chargeUrl: null;
+        rate: 128000;
+      }[];
+      cp: 1;
+      cs: false;
+      dl: 0;
+      dlLevel: 'none';
+      downloadMaxBrLevel: 'exhigh';
+      downloadMaxbr: 320000;
+      fee: 8;
+      fl: 128000;
+      flLevel: 'standard';
+      flag: 2;
+      freeTrialPrivilege: {
+        listenType: null;
+        resConsumable: false;
+        userConsumable: false;
+      };
+      id: 1818237485;
+      maxBrLevel: 'exhigh';
+      maxbr: 320000;
+      payed: 0;
+      pl: 128000;
+      plLevel: 'standard';
+      playMaxBrLevel: 'exhigh';
+      playMaxbr: 320000;
+      preSell: false;
+      rscl: null;
+      sp: 7;
+      st: 0;
+      subp: 1;
+      toast: false;
+    }[];
+    songs: SongType['songDetail']['songs'];
+  };
 };
 const detail = (
   id: number | string,
@@ -184,7 +225,21 @@ const detail = (
     http
       .get('/playlist/detail', { id, s })
       .then((res: any) => {
-        console.log(res);
+        if (res.code === 200) return resolve(res);
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const trackAll = (
+  id: number | string,
+  limit: number = 30,
+  offset: number = 0,
+) => {
+  return new Promise((resolve, reject) => {
+    http
+      .get('/playlist/track/all', { id, limit, offset })
+      .then((res: any) => {
         if (res.code === 200) return resolve(res);
         return reject(res);
       })
@@ -193,4 +248,5 @@ const detail = (
 };
 export const playlistApi = {
   detail,
+  trackAll,
 };

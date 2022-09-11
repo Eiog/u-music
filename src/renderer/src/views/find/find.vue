@@ -2,7 +2,6 @@
 import Banner from './components/Banner.vue';
 import Ball from './components/Ball.vue';
 import Resource from './components/Resource.vue';
-homeApi.findBall();
 </script>
 <template>
   <div wfull>

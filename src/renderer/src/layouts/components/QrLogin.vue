@@ -1,9 +1,9 @@
 <script setup lang="ts" name="">
-import { loginApi } from '~/api';
+import { loginApi, CheckQrResult } from '~/api';
 import { useAppStore } from '~/stores';
 const appStore = useAppStore();
 const qrImg = ref('');
-const status = ref<{ code: number; message: string; cookie: string }>();
+const status = ref<CheckQrResult>();
 const interval = ref<number | null>(null);
 const checkQr = (key: string) => {
   interval.value = setInterval(async () => {
@@ -11,10 +11,13 @@ const checkQr = (key: string) => {
       status.value = await loginApi.checkQr(key);
       if (status.value.code === 803) {
         clearInterval(interval.value as number);
+        appStore.$patch({
+          cookie: status.value.cookie,
+          refreshed: true,
+        });
+        await loginApi.status();
         window.$message.success('登录成功');
         window.$dialog.destroyAll();
-        appStore.cookie = status.value.cookie;
-        await loginApi.status();
       }
     } catch (error) {
       console.log(error);
@@ -39,6 +42,7 @@ onUnmounted(() => {
   <div>
     <img :src="qrImg" />
     <p>{{ status?.message }}</p>
+    <p>{{ status?.nickname }}</p>
   </div>
 </template>
 <style scoped lang="less"></style>

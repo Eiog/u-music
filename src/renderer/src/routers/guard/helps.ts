@@ -4,13 +4,22 @@ import { useAppStore } from '~/stores';
 import NProgress from 'nprogress';
 import { RouteLocation } from 'vue-router';
 import { useTitle } from '@vueuse/core';
-export const checkLogin = async () => {
-  const { account, profile } = storeToRefs(useAppStore());
-  if (account.value || profile.value) return;
-  try {
-    await loginApi.status();
-  } catch (error) {}
+const { refresh, status, anonimous } = loginApi;
+export const refreshStatus = async () => {
+  const { cookie, refreshed } = storeToRefs(useAppStore());
+  if (cookie.value !== '') {
+    if (refreshed.value) return;
+    try {
+      await status();
+      await refresh();
+    } catch (error) {
+      await anonimous();
+    }
+    return;
+  }
+  await anonimous();
 };
+
 /**使用进度条 */
 export function useNProgress() {
   /**进度条开始 */

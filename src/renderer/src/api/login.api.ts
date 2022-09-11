@@ -1,4 +1,5 @@
 import http from '~/axios';
+import md5 from 'md5';
 import { useAppStore } from '~/stores';
 export type StatusResult = {
   code: number;
@@ -57,7 +58,14 @@ export type StatusResult = {
     viptypeVersion: number;
   };
 };
-const getPhoneCode = (phone: string) => {
+export type CheckQrResult = {
+  code: 800 | 801 | 802 | 803;
+  cookie: string;
+  message: string;
+  avatarUrl?: string;
+  nickname?: string;
+};
+const sentCaptcha = (phone: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     http
       .get('/captcha/sent', { phone: phone })
@@ -68,7 +76,7 @@ const getPhoneCode = (phone: string) => {
       .catch((err) => reject(err));
   });
 };
-const verifyPhoneCode = (phone: string, captcha: string) => {
+const verifyCaptcha = (phone: string, captcha: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     http
       .get('/captcha/verify', { phone, captcha })
@@ -101,30 +109,12 @@ const getQr = (key: string): Promise<string> => {
       .catch((err) => reject(err));
   });
 };
-const checkQr = (
-  key: string,
-): Promise<{ code: number; message: string; cookie: string }> => {
+const checkQr = (key: string): Promise<CheckQrResult> => {
   return new Promise((resolve, reject) => {
     http
       .get('/login/qr/check', { key, timestamp: Date.now() })
       .then((res: any) => {
         return resolve(res);
-      })
-      .catch((err) => reject(err));
-  });
-};
-const status = (): Promise<StatusResult> => {
-  return new Promise((resolve, reject) => {
-    http
-      .get('/login/status')
-      .then((res: any) => {
-        if (res.data.profile) {
-          const { account, profile } = storeToRefs(useAppStore());
-          account.value = res.data.account;
-          profile.value = res.data.profile;
-          return resolve(res.data);
-        }
-        return reject(res);
       })
       .catch((err) => reject(err));
   });
@@ -139,6 +129,7 @@ const logOut = () => {
             cookie: '',
             profile: undefined,
             account: undefined,
+            refreshed: false,
           });
           return resolve(true);
         }
@@ -147,12 +138,141 @@ const logOut = () => {
       .catch((err) => reject(err));
   });
 };
+const anonimous = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    http
+      .get('/register/anonimous')
+      .then((res: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            account: res.account,
+            profile: res.profile,
+            cookie: res.cookie,
+            refreshed: true,
+            tourist: res.profile ? false : true,
+          });
+          return resolve(res.cookie);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const emailLogin = (accoutn: string, password: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    http
+      .post('/login', {
+        email: accoutn,
+        md5_password: md5(password),
+      })
+      .then((res: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            account: res.account,
+            profile: res.profile,
+            cookie: res.cookie,
+            refreshed: true,
+            tourist: res.profile ? false : true,
+          });
+          return resolve(res);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const captchaLogin = (accoutn: string, captcha: string) => {
+  return new Promise((resolve, reject) => {
+    http
+      .post('/login/cellphone', {
+        phone: accoutn,
+        captcha,
+      })
+      .then((res: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            account: res.account,
+            profile: res.profile,
+            cookie: res.cookie,
+            refreshed: true,
+            tourist: res.profile ? false : true,
+          });
+          return resolve(res);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const phoneLogin = (accoutn: string, password: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    http
+      .post('/login/cellphone', {
+        phone: accoutn,
+        md5_password: md5(password),
+      })
+      .then((res: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            account: res.account,
+            profile: res.profile,
+            cookie: res.cookie,
+            refreshed: true,
+            tourist: res.profile ? false : true,
+          });
+          return resolve(res);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const status = (): Promise<StatusResult> => {
+  return new Promise((resolve, reject) => {
+    http
+      .get('/login/status')
+      .then(({ data: res }: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            account: res.account,
+            profile: res.profile,
+            tourist: res.profile ? false : true,
+          });
+          return resolve(res);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
+const refresh = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    http
+      .get('/login/refresh')
+      .then((res: any) => {
+        if (res.code === 200) {
+          useAppStore().$patch({
+            cookie: res.cookie,
+            refreshed: true,
+          });
+          return resolve(res.cookie);
+        }
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
 export const loginApi = {
-  getPhoneCode,
-  verifyPhoneCode,
+  sentCaptcha,
+  verifyCaptcha,
   getQrKey,
   getQr,
   checkQr,
   status,
   logOut,
+  anonimous,
+  emailLogin,
+  phoneLogin,
+  captchaLogin,
+  refresh,
 };

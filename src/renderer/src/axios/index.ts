@@ -74,7 +74,10 @@ const http = {
     const { cookie } = useAppStore();
     return axiosInstance.get(url, { params: { cookie, ...data } });
   },
-  post: (url: string, data?: object) => axiosInstance.post(url, data),
+  post: (url: string, data?: object) => {
+    const { cookie } = useAppStore();
+    return axiosInstance.post(url, { cookie, ...data });
+  },
   put: (url: string, data?: object) => axiosInstance.put(url, data),
   delete: (url: string, data?: object) =>
     axiosInstance.delete(url, { data: data }),

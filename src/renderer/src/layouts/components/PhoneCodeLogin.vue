@@ -1,6 +1,7 @@
 <script setup lang="ts" name="">
-import { FormRules, FormItemRule, FormInst, CountdownInst } from 'naive-ui';
+import { FormInst, CountdownInst } from 'naive-ui';
 import { loginApi } from '~/api';
+const { sentCaptcha, verifyCaptcha, captchaLogin } = loginApi;
 const formRef = ref<FormInst | null>(null);
 const formValue = ref({
   phone: '',
@@ -17,10 +18,9 @@ const phoneValidateFeedback = computed(() =>
   isPhone.value ? '' : '手机号格式错误',
 );
 
-const handleGetCode = (e) => {
-  e.preventDefault();
+const handleGetCode = () => {
   if (!isPhone.value) return window.$message.error('请输入正确手机号');
-  loginApi.getPhoneCode(formValue.value.phone).then((res) => {
+  return sentCaptcha(formValue.value.phone).then(() => {
     window.$message.success('发送成功');
     isAwait.value = true;
   });
@@ -31,12 +31,13 @@ const onFinish = () => {
   isAwait.value = false;
   countdownRef.value?.reset();
 };
-const handleLogin = () => {
+const handleLogin = async () => {
   if (!isPhone.value) return;
-  loginApi
-    .verifyPhoneCode(formValue.value.phone, formValue.value.captcha)
-    .then((res) => {
+  verifyCaptcha(formValue.value.phone, formValue.value.captcha)
+    .then(() => captchaLogin(formValue.value.phone, formValue.value.captcha))
+    .then(() => {
       window.$message.success('登录成功');
+      window.$dialog.destroyAll();
     });
 };
 </script>

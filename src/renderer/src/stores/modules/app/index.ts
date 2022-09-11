@@ -11,6 +11,8 @@ export const useAppStore = defineStore(
     const account = ref<StatusResult['account']>();
     const profile = ref<StatusResult['profile']>();
     const cookie = ref('');
+    const refreshed = ref(false);
+    const tourist = ref(false);
     const playerShow = ref(false);
     const playerListShow = ref(false);
     const darkMode = ref(false);
@@ -53,12 +55,15 @@ export const useAppStore = defineStore(
         },
       };
     });
+
     return {
       closeByMini,
       sideCollapsed,
       account,
       profile,
       cookie,
+      refreshed,
+      tourist,
       playerShow,
       playerListShow,
       darkMode,

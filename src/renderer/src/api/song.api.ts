@@ -168,6 +168,10 @@ export type SongType = {
       urlSource: number;
     };
   };
+  songStatus: {
+    success: boolean;
+    message: string;
+  };
   lrc: {
     lyric: string;
     version: number;
@@ -184,10 +188,13 @@ const detail = (ids: string | number): Promise<SongType['songDetail']> => {
       .catch((err) => reject(err));
   });
 };
-const url = (id: string | number): Promise<SongType['sontUrl']['data']> => {
+const url = (
+  id: string | number,
+  br: number = 999000,
+): Promise<SongType['sontUrl']['data']> => {
   return new Promise((resolve, reject) => {
     http
-      .get('/song/url', { id })
+      .get('/song/url', { id, br })
       .then((res: any) => {
         if (res.code === 200) return resolve(res.data[0]);
         return reject(res);
@@ -195,10 +202,13 @@ const url = (id: string | number): Promise<SongType['sontUrl']['data']> => {
       .catch((err) => reject(err));
   });
 };
-const check = (id: string | number): Promise<SongType['sontUrl']['data']> => {
+const check = (
+  id: string | number,
+  br: number = 999000,
+): Promise<SongType['songStatus']> => {
   return new Promise((resolve, reject) => {
     http
-      .get('/check/music', { id })
+      .get('/check/music', { id, br })
       .then((res: any) => {
         if (res.success) return resolve(res);
         return reject(res);

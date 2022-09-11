@@ -3,7 +3,7 @@ import { NButton } from 'naive-ui';
 import LoginPanel from './LoginPanel.vue';
 import { useAppStore } from '~/stores';
 import { loginApi } from '~/api';
-const { profile } = storeToRefs(useAppStore());
+const { profile, cookie } = storeToRefs(useAppStore());
 const handleLogOut = () => {
   loginApi.logOut().then(() => {
     window.$message.success('退出登录');
@@ -20,7 +20,7 @@ const handleRenderLoginWindow = () => {
 </script>
 <template>
   <n-button secondary v-if="!profile" @click="handleRenderLoginWindow">
-    登录
+    {{ cookie ? '游客账号' : '未登录' }}
   </n-button>
   <n-popover trigger="click" v-if="profile">
     <template #trigger>
