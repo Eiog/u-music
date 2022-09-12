@@ -1,9 +1,9 @@
 <script setup lang="ts" name="">
-import { searchApi, SearchType } from '~/api';
+import { searchApi } from '~/api';
 import { usePlayerStore } from '~/stores';
-import SongTable from './components/SongTable.vue';
+import { SongTable } from '~/components';
 const { play } = usePlayerStore();
-const searchResult = ref<SearchType['searchResult']['songs']>();
+const searchResult = ref<Song.Detail[]>();
 const searchResultCount = ref<number>(0);
 const limit = ref(30);
 const page = ref(1);
@@ -80,12 +80,17 @@ const handlePlayCurrentPage = () => {
         </n-button>
       </div>
     </div>
-    <SongTable
-      flex="1"
-      :data="searchResult"
-      :loading="loading"
-      :prefix-count="prefixCount"
-    />
+    <div flex-1 min-h-0>
+      <n-scrollbar>
+        <SongTable
+          flex="1"
+          :data="searchResult"
+          :loading="loading"
+          :prefix-count="prefixCount"
+        />
+      </n-scrollbar>
+    </div>
+
     <n-pagination
       v-model:page="page"
       :page-count="pageCount"

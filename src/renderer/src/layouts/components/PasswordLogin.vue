@@ -2,8 +2,8 @@
 import { loginApi } from '~/api';
 import { REGEXP_PHONE, REGEXP_EMAIL } from '~/utils';
 const formValue = ref({
-  accoutn: '',
-  password: '',
+  accoutn: '18646153654',
+  password: 'cc995801',
 });
 const judgeType = computed(() => {
   if (REGEXP_PHONE.test(formValue.value.accoutn)) return 'phone';

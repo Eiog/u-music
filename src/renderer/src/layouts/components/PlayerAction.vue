@@ -31,7 +31,7 @@ const modeIcon = computed(() => {
       <i i-ri-hq-fill></i>
     </div>
     <PlayerVolume />
-    <div class="btn" @click="playerListShow = !playerListShow">
+    <div class="btn" @click="playerListShow = true">
       <i i-ri-play-list-fill></i>
     </div>
   </div>

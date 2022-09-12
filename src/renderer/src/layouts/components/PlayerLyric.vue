@@ -25,11 +25,13 @@ const formatLyric = (lyric: string) => {
   _lyric.forEach((item) => {
     let itemArr = item.split(']');
     let text = itemArr.pop() || '';
-    itemArr.forEach((_item) => {
-      let timeArr = item.slice(1).split(':');
-      let time = parseInt(timeArr[0]) * 60 + Math.ceil(parseInt(timeArr[1]));
-      result.push({ time, text });
-    });
+    itemArr &&
+      itemArr.forEach((_item) => {
+        let timeArr = item.slice(1).split(':');
+        let time =
+          parseInt(timeArr[0]) * 60 + Math.ceil(parseInt(timeArr[1])) || 0;
+        result.push({ time, text });
+      });
   });
   return result;
 };
@@ -44,6 +46,7 @@ const currentLyricIndex = computed(() => {
   let _index: number | undefined = undefined;
   lyric.value.forEach((item, index, arr) => {
     if (
+      item &&
       item.time &&
       currentTime.value >= item.time &&
       currentTime.value < arr[index + 1].time

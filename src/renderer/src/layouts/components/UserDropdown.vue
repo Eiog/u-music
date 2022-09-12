@@ -12,6 +12,7 @@ const handleLogOut = () => {
 const handleRenderLoginWindow = () => {
   window.$dialog.create({
     title: '登录',
+    maskClosable: false,
     content: () => {
       return h(LoginPanel, {}, {});
     },

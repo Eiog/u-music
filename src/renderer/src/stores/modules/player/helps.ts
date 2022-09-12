@@ -1,6 +1,5 @@
-import { songApi, SongType } from '~/api';
+import { songApi } from '~/api';
 import { Ref } from 'vue';
-type SongDetail = SongType['songDetail'];
 type AddPlauListResult = {
   url: string;
   name: string;
@@ -8,7 +7,7 @@ type AddPlauListResult = {
 };
 export const addPlayList = async (
   id: number | number[],
-  list: Ref<SongDetail['songs']>,
+  list: Ref<Song.Detail[]>,
 ): Promise<AddPlauListResult> => {
   const isArr = Array.isArray(id);
   const songId = isArr ? id.join() : id.toString();

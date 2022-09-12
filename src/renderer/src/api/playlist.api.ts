@@ -1,135 +1,8 @@
 import http from '~/axios';
-import { SongType } from './song.api';
 export type PlayListResult = {
   detail: {
     code: number;
-    playlist: {
-      adType: number;
-      algTags: null;
-      backgroundCoverId: number;
-      backgroundCoverUrl: string;
-      cloudTrackCount: number;
-      commentCount: number;
-      commentThreadId: string;
-      copied: boolean;
-      coverImgId: number;
-      coverImgId_str: string;
-      coverImgUrl: string;
-      createTime: number;
-      creator: {
-        accountStatus: number;
-        anchor: boolean;
-        authStatus: number;
-        authenticationTypes: number;
-        authority: number;
-        avatarDetail: {
-          userType: number;
-          identityLevel: number;
-          identityIconUrl: string;
-        };
-        avatarImgId: number;
-        avatarImgIdStr: string;
-        avatarImgId_str: string;
-        avatarUrl: string;
-        backgroundImgId: number;
-        backgroundImgIdStr: string;
-        backgroundUrl: string;
-        birthday: number;
-        city: number;
-        defaultAvatar: boolean;
-        description: string;
-        detailDescription: string;
-        djStatus: number;
-        expertTags: null;
-        experts: null;
-        followed: boolean;
-        gender: number;
-        mutual: boolean;
-        nickname: string;
-        province: number;
-        remarkName: null;
-        signature: string;
-        userId: number;
-        userType: number;
-        vipType: number;
-      };
-      description: string;
-      englishTitle: string;
-      gradeStatus: string;
-      highQuality: boolean;
-      historySharedUsers: null;
-      id: number;
-      name: string;
-      newImported: boolean;
-      officialPlaylistType: string;
-      opRecommend: boolean;
-      ordered: boolean;
-      playCount: number;
-      privacy: number;
-      remixVideo: null;
-      score: null;
-      shareCount: number;
-      sharedUsers: null;
-      specialType: number;
-      status: number;
-      subscribed: true;
-      subscribedCount: number;
-      subscribers: {
-        accountStatus: number;
-        anchor: false;
-        authStatus: number;
-        authenticationTypes: number;
-        authority: number;
-        avatarDetail: null;
-        avatarImgId: number;
-        avatarImgIdStr: string;
-        avatarImgId_str: string;
-        avatarUrl: string;
-        backgroundImgId: number;
-        backgroundImgIdStr: string;
-        backgroundUrl: string;
-        birthday: number;
-        city: number;
-        defaultAvatar: false;
-        description: string;
-        detailDescription: string;
-        djStatus: number;
-        expertTags: null;
-        experts: null;
-        followed: false;
-        gender: number;
-        mutual: false;
-        nickname: string;
-        province: number;
-        remarkName: null;
-        signature: string;
-        userId: number;
-        userType: number;
-        vipType: number;
-      }[];
-      tags: string[];
-      titleImage: number;
-      titleImageUrl: string;
-      trackCount: number;
-      trackIds: {
-        alg: string;
-        at: number;
-        id: number;
-        rcmdReason: string;
-        sc: null;
-        t: number;
-        uid: number;
-        v: number;
-      }[];
-      trackNumberUpdateTime: number;
-      trackUpdateTime: number;
-      tracks: SongType['songDetail']['songs'];
-      updateFrequency: string;
-      updateTime: number;
-      userId: number;
-      videoIds: null;
-      videos: null;
-    };
+    playlist: Song.Playlist;
     privileges: {
       chargeInfoList: {
         chargeMessage: null;
@@ -214,7 +87,7 @@ export type PlayListResult = {
       subp: 1;
       toast: false;
     }[];
-    songs: SongType['songDetail']['songs'];
+    songs: Song.Detail[];
   };
 };
 const detail = (
@@ -233,9 +106,9 @@ const detail = (
 };
 const trackAll = (
   id: number | string,
-  limit: number = 30,
-  offset: number = 0,
-) => {
+  limit?: number,
+  offset?: number,
+): Promise<PlayListResult['trackAll']> => {
   return new Promise((resolve, reject) => {
     http
       .get('/playlist/track/all', { id, limit, offset })

@@ -39,134 +39,11 @@ export type SongType = {
       subp: number;
       toast: boolean;
     }[];
-    songs: {
-      a: null;
-      al: {
-        id: number;
-        name: string;
-        pic: number;
-        picUrl: string;
-        pic_str: string;
-        tns: [];
-      };
-      alia: [];
-      ar: {
-        id: number;
-        name: string;
-        tns: [];
-        alias: [];
-      }[];
-      awardTags: null;
-      cd: string;
-      cf: string;
-      copyright: number;
-      cp: number;
-      crbt: null;
-      djId: number;
-      dt: number;
-      entertainmentTags: null;
-      fee: number;
-      ftype: number;
-      h: {
-        br: number;
-        fid: number;
-        size: number;
-        vd: number;
-        sr: number;
-      };
-      hr: {
-        br: number;
-        fid: number;
-        size: number;
-        vd: number;
-        sr: number;
-      };
-      id: number;
-      l: {
-        br: number;
-        fid: number;
-        size: number;
-        vd: number;
-        sr: number;
-      };
-      m: {
-        br: number;
-        fid: number;
-        size: number;
-        vd: number;
-        sr: number;
-      };
-      mark: 536879104;
-      mst: number;
-      mv: number;
-      name: string;
-      no: number;
-      noCopyrightRcmd: null;
-      originCoverType: number;
-      originSongSimpleData: null;
-      pop: number;
-      pst: number;
-      publishTime: number;
-      resourceState: true;
-      rt: string;
-      rtUrl: null;
-      rtUrls: [];
-      rtype: number;
-      rurl: null;
-      s_id: number;
-      single: number;
-      songJumpInfo: null;
-      sq: {
-        br: number;
-        fid: number;
-        size: number;
-        vd: number;
-        sr: number;
-      };
-      st: number;
-      t: number;
-      tagPicList: null;
-      v: number;
-      version: number;
-    }[];
+    songs: Song.Detail[];
   };
   sontUrl: {
     code: number;
-    data: {
-      br: number;
-      canExtend: boolean;
-      code: number;
-      effectTypes: null;
-      encodeType: string;
-      expi: number;
-      fee: number;
-      flag: number;
-      freeTimeTrialPrivilege: {
-        resConsumable: boolean;
-        userConsumable: boolean;
-        type: number;
-        remainTime: number;
-      };
-      freeTrialInfo: null;
-      freeTrialPrivilege: {
-        resConsumable: boolean;
-        userConsumable: boolean;
-        listenType: null;
-      };
-      gain: number;
-      id: number;
-      level: string;
-      md5: string;
-      payed: number;
-      podcastCtrp: null;
-      rightSource: number;
-      size: number;
-      time: number;
-      type: string;
-      uf: null;
-      url: string;
-      urlSource: number;
-    };
+    data: Song.Url;
   };
   songStatus: {
     success: boolean;
@@ -228,9 +105,23 @@ const lyric = (id: number | string): Promise<SongType['lrc']> => {
       .catch((err) => reject(err));
   });
 };
+const fm = () => {
+  return new Promise((resolve, reject) => {
+    http
+      .get('/personal_fm')
+      .then((res: any) => {
+        console.log(res);
+
+        if (res.code === 200) return resolve(res.lrc);
+        return reject(res);
+      })
+      .catch((err) => reject(err));
+  });
+};
 export const songApi = {
   detail,
   url,
   lyric,
   check,
+  fm,
 };

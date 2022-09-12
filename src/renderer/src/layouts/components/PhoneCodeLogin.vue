@@ -4,7 +4,7 @@ import { loginApi } from '~/api';
 const { sentCaptcha, verifyCaptcha, captchaLogin } = loginApi;
 const formRef = ref<FormInst | null>(null);
 const formValue = ref({
-  phone: '',
+  phone: '18646153654',
   captcha: '',
 });
 const isPhone = computed(() => {

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { addPlayList } from './helps';
-import { SongType, songApi } from '~/api';
-type SongDetail = SongType['songDetail'];
+import { songApi } from '~/api';
 export const usePlayerStore = defineStore(
   'playerStore',
   () => {
@@ -9,7 +8,7 @@ export const usePlayerStore = defineStore(
     const song = computed(() =>
       list.value.find((item) => item.id === id.value),
     );
-    const list = ref<SongDetail['songs']>([]);
+    const list = ref<Song.Detail[]>([]);
     const replaceList = ref<Boolean>(true);
     const url = ref<string>('');
     const id = ref<number | undefined>();

@@ -1,5 +1,5 @@
 <script setup lang="ts" name="">
-import { DropdownOption, InputProps } from 'naive-ui';
+import { DropdownOption } from 'naive-ui';
 import { searchApi } from '~/api';
 const router = useRouter();
 const inputValue = ref('');
