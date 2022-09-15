@@ -11,30 +11,34 @@ const init = async () => {
 init();
 </script>
 <template>
-  <div w210px h210px flex="~ wrap">
-    <div
-      w70px
-      h70px
-      flex="~ col"
-      items="center"
-      justify="center"
-      gap1
-      cursor="pointer"
-      v-for="(item, index) in ballData"
-      :key="index"
-    >
-      <div
-        w40px
-        h40px
-        transition="colors"
-        bg="gray-3 hover:gray-4"
-        rounded-full
-        flex-center
-      >
-        <img w30px h30px :src="item.iconUrl" alt="" />
+  <div w210px h210px bg="white dark:dark8" rounded-xl shadow-md py3>
+    <n-scrollbar>
+      <div flex="~ wrap" gap-y-1>
+        <div
+          w="1/3"
+          hauto
+          flex="~ col"
+          items="center"
+          justify="center"
+          gap1
+          cursor="pointer"
+          v-for="(item, index) in ballData"
+          :key="index"
+        >
+          <div
+            w40px
+            h40px
+            transition="colors"
+            bg="gray-3 hover:gray-4 dark:(dark3 hover:dark2)"
+            rounded-full
+            flex-center
+          >
+            <img w30px h30px :src="item.iconUrl" alt="" />
+          </div>
+          <span text-xs>{{ item.name }}</span>
+        </div>
       </div>
-      <span text-xs>{{ item.name }}</span>
-    </div>
+    </n-scrollbar>
   </div>
 </template>
 <style scoped lang="less"></style>

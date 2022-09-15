@@ -16,17 +16,19 @@ const appStore = useAppStore();
       <Aside
         transition="all"
         bg="white dark:dark-8"
-        border="t b r gray-1 dark:dark-1"
         :class="appStore.sideCollapsed ? 'w-14' : 'w-46'"
       />
       <main
         flex="~ 1"
-        p="1"
         overflow="hidden"
         transition="all"
-        bg="gray-1 dark:dark-2"
+        bg="gray-1 dark:dark5"
       >
-        <slot></slot>
+        <n-scrollbar>
+          <div wfull p2 bg="gray-1 dark:dark5">
+            <slot></slot>
+          </div>
+        </n-scrollbar>
       </main>
     </div>
     <Footer h="20" bg="white dark:dark-8" z="1" transition="all" />

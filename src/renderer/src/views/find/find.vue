@@ -5,17 +5,15 @@ import Resource from './components/Resource.vue';
 </script>
 <template>
   <div wfull>
-    <n-scrollbar>
-      <div wfull flex="~" justify-center>
-        <div w5xl flex="~ col" gap5>
-          <div wfull flex="~" justify="between">
-            <Banner flex="~ 1" />
-            <Ball />
-          </div>
-          <Resource />
+    <div wfull flex="~" justify-center>
+      <div w5xl flex="~ col" gap3>
+        <div wfull flex="~" justify="between" gap3>
+          <Banner flex="~ 1" />
+          <Ball />
         </div>
+        <Resource />
       </div>
-    </n-scrollbar>
+    </div>
   </div>
 </template>
 <style scoped lang="less"></style>

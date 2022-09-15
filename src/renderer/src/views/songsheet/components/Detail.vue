@@ -18,7 +18,16 @@ const handlePlayAll = () => {
 };
 </script>
 <template>
-  <div wfull flex gap5 v-if="props.data">
+  <div
+    wfull
+    flex
+    gap5
+    v-if="props.data"
+    bg="white dark:dark8"
+    p3
+    rounded-xl
+    shadow-sm
+  >
     <div w50>
       <div wfull hauto rounded-xl overflow-hidden>
         <img :src="props.data.coverImgUrl" alt="" />

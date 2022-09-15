@@ -6,18 +6,15 @@ import { RouteLocation } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 const { refresh, status, anonimous } = loginApi;
 export const refreshStatus = async () => {
-  const { cookie, refreshed } = storeToRefs(useAppStore());
-  if (cookie.value !== '') {
-    if (refreshed.value) return;
-    try {
-      await status();
-      await refresh();
-    } catch (error) {
-      await anonimous();
-    }
-    return;
+  const { refreshed } = storeToRefs(useAppStore());
+  if (refreshed.value) return;
+  try {
+    await status();
+    refreshed.value = true;
+  } catch (error) {
+    await anonimous();
   }
-  await anonimous();
+  return;
 };
 
 /**使用进度条 */

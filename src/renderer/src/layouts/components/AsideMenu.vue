@@ -61,7 +61,7 @@ onMounted(() => {
         class="select-none"
         :class="[
           props.collapsed ? 'collapsed' : '',
-          currentPath === item.path ? 'active' : 'text-base',
+          currentPath === item.path ? 'active text-rose5' : 'text-base',
         ]"
         ref="domRef"
         @click="router.push(item.path)"

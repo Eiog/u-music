@@ -111,7 +111,7 @@ const trackAll = (
 ): Promise<PlayListResult['trackAll']> => {
   return new Promise((resolve, reject) => {
     http
-      .get('/playlist/track/all', { id, limit, offset })
+      .post('/playlist/track/all', { id, limit, offset })
       .then((res: any) => {
         if (res.code === 200) return resolve(res);
         return reject(res);

@@ -65,6 +65,7 @@ export type CheckQrResult = {
   avatarUrl?: string;
   nickname?: string;
 };
+
 const sentCaptcha = (phone: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     http
@@ -114,6 +115,12 @@ const checkQr = (key: string): Promise<CheckQrResult> => {
     http
       .get('/login/qr/check', { key, timestamp: Date.now() })
       .then((res: any) => {
+        if (res.code === 803) {
+          useAppStore().$patch({
+            cookie: res.cookie,
+            refreshed: true,
+          });
+        }
         return resolve(res);
       })
       .catch((err) => reject(err));
@@ -141,13 +148,13 @@ const logOut = () => {
 const anonimous = (): Promise<string> => {
   return new Promise((resolve, reject) => {
     http
-      .get('/register/anonimous')
+      .get('/register/anonimous', { cookie: '' })
       .then((res: any) => {
         if (res.code === 200) {
           useAppStore().$patch({
+            cookie: res.cookie,
             account: res.account,
             profile: res.profile,
-            cookie: res.cookie,
             refreshed: true,
             tourist: res.profile ? false : true,
           });
@@ -168,9 +175,9 @@ const emailLogin = (accoutn: string, password: string): Promise<string> => {
       .then((res: any) => {
         if (res.code === 200) {
           useAppStore().$patch({
+            cookie: res.cookie,
             account: res.account,
             profile: res.profile,
-            cookie: res.cookie,
             refreshed: true,
             tourist: res.profile ? false : true,
           });
@@ -191,9 +198,9 @@ const captchaLogin = (accoutn: string, captcha: string) => {
       .then((res: any) => {
         if (res.code === 200) {
           useAppStore().$patch({
+            cookie: res.cookie,
             account: res.account,
             profile: res.profile,
-            cookie: res.cookie,
             refreshed: true,
             tourist: res.profile ? false : true,
           });
@@ -214,9 +221,9 @@ const phoneLogin = (accoutn: string, password: string): Promise<string> => {
       .then((res: any) => {
         if (res.code === 200) {
           useAppStore().$patch({
+            cookie: res.cookie,
             account: res.account,
             profile: res.profile,
-            cookie: res.cookie,
             refreshed: true,
             tourist: res.profile ? false : true,
           });
@@ -232,7 +239,7 @@ const status = (): Promise<StatusResult> => {
     http
       .get('/login/status')
       .then(({ data: res }: any) => {
-        if (res.code === 200) {
+        if (res.code === 200 && res.account && res.profile) {
           useAppStore().$patch({
             account: res.account,
             profile: res.profile,
@@ -252,10 +259,9 @@ const refresh = (): Promise<string> => {
       .then((res: any) => {
         if (res.code === 200) {
           useAppStore().$patch({
-            cookie: res.cookie,
             refreshed: true,
           });
-          return resolve(res.cookie);
+          return resolve(res);
         }
         return reject(res);
       })

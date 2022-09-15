@@ -1,12 +1,10 @@
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosRequestHeaders,
   AxiosResponse,
   AxiosError,
 } from 'axios';
 import NProgress from 'nprogress';
-import showCodeMessage from './code';
 import { formatJsonToUrlParams, instanceObject } from './_methods';
 import { useAppStore } from '~/stores';
 const BASE_PREFIX =
@@ -22,6 +20,7 @@ const axiosInstance: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 // 请求拦截器
 axiosInstance.interceptors.request.use(
@@ -45,13 +44,10 @@ axiosInstance.interceptors.response.use(
     if (response.status === 200) {
       return response.data;
     }
-    window.$notification.warning({
-      title: response.statusText,
-      content: response.data.msg || '错误',
-    });
     return Promise.reject(response.data);
   },
   (error: AxiosError<{ code: number; msg: string }>) => {
+    return Promise.reject(error);
     if (error.code === 'ERR_CANCELED') {
       return false;
     }
