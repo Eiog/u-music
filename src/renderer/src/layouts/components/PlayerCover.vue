@@ -1,5 +1,4 @@
 <script setup lang="ts" name="">
-import { usePlayerStore } from '~/stores';
 const { song, playing } = storeToRefs(usePlayerStore());
 </script>
 <template>

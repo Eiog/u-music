@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { loginApi } from '~/api';
-import { REGEXP_PHONE, REGEXP_EMAIL } from '~/utils';
 const formValue = ref({
   accoutn: '18646153654',
   password: 'cc995801',

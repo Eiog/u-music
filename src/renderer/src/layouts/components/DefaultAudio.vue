@@ -1,5 +1,4 @@
 <script setup lang="ts" name="">
-import { usePlayerStore } from '~/stores';
 const { playing, url, currentTime, updateCurrentTime, duration, volume } =
   storeToRefs(usePlayerStore());
 const { next } = usePlayerStore();
@@ -8,10 +7,10 @@ const audioUpdateEvent = (e: Event) => {
   currentTime.value = e.target!['currentTime'] | 0;
   duration.value = e.target!['duration'] | 0;
 };
-const audioErrEvent = (e) => {
+const audioErrEvent = () => {
   playing.value = false;
 };
-const audioEndedEvent = (e) => {
+const audioEndedEvent = () => {
   playing.value = false;
   next(true);
 };

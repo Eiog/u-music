@@ -1,16 +1,11 @@
 <script setup lang="ts" name="">
-import { useAppStore } from '~/stores';
-import UserDropdown from './components/UserDropdown.vue';
-import Search from './components/Search.vue';
-import Brand from './components/Brand.vue';
-import ToggleTheme from './components/ToggleTheme.vue';
 import { windowIpc } from '~/ipc';
 const { darkMode } = storeToRefs(useAppStore());
 const router = useRouter();
 </script>
 <template>
   <header flex="~">
-    <Brand />
+    <default-brand />
     <div flex="~" flex-center gap="5">
       <n-button secondary circle strong @click="router.go(-1)">
         <i i-ri-arrow-left-s-line></i>
@@ -20,7 +15,7 @@ const router = useRouter();
       </n-button>
     </div>
     <div flex-center m="l-5">
-      <Search />
+      <default-search />
     </div>
     <div m="l-auto" flex-center>
       <user-dropdown />

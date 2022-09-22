@@ -1,9 +1,4 @@
 <script setup lang="ts" name="">
-import { useAppStore, usePlayerStore } from '~/stores';
-import PlayerMini from './PlayerMini.vue';
-import PlayerCover from './PlayerCover.vue';
-import PlayerLyric from './PlayerLyric.vue';
-import PlayerRec from './PlayerRec.vue';
 const { playerShow } = storeToRefs(useAppStore());
 const { song } = storeToRefs(usePlayerStore());
 const showClass = computed(() => {
@@ -58,13 +53,13 @@ const showClass = computed(() => {
         <span w="200px" h="1px" bg="gray-300"></span>
       </div>
       <div flex="~ shrink-1 1" min-h="0">
-        <PlayerCover w="1/3" />
-        <PlayerLyric w="1/3" />
-        <PlayerRec w="1/3" />
+        <player-cover w="1/3" />
+        <player-lyric w="1/3" />
+        <player-rec w="1/3" />
       </div>
     </main>
     <footer w="full" h="20">
-      <PlayerMini />
+      <player-mini />
     </footer>
   </div>
 </template>

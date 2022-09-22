@@ -1,8 +1,4 @@
-<script setup lang="ts" name="">
-import PasswordLogin from './PasswordLogin.vue';
-import PhoneCodeLogin from './PhoneCodeLogin.vue';
-import QrLogin from './QrLogin.vue';
-</script>
+<script setup lang="ts" name=""></script>
 <template>
   <n-tabs
     class="card-tabs"
@@ -11,13 +7,13 @@ import QrLogin from './QrLogin.vue';
     animated
   >
     <n-tab-pane name="password-login" tab="账号密码登录">
-      <PasswordLogin />
+      <password-login />
     </n-tab-pane>
     <n-tab-pane name="phone-code-login" tab="手机验证码登录">
-      <PhoneCodeLogin />
+      <phone-code-login />
     </n-tab-pane>
     <n-tab-pane name="qr-login" tab="二维码登录">
-      <QrLogin />
+      <qr-login />
     </n-tab-pane>
   </n-tabs>
 </template>

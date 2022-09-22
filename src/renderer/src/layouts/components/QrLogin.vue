@@ -1,6 +1,5 @@
 <script setup lang="ts" name="">
 import { loginApi, CheckQrResult } from '~/api';
-import { useAppStore } from '~/stores';
 const appStore = useAppStore();
 const qrImg = ref('');
 const status = ref<CheckQrResult>();

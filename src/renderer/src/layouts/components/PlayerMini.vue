@@ -1,9 +1,4 @@
 <script setup lang="ts" name="">
-import PlayerController from './PlayerController.vue';
-import PlayerSongInfo from './PlayerSongInfo.vue';
-import PlayerAction from './PlayerAction.vue';
-import PlayerProgress from './PlayerProgress.vue';
-import { usePlayerStore } from '~/stores';
 const { progressUpdate } = usePlayerStore();
 const { song, list, progress, _currentTime, _duration } = storeToRefs(
   usePlayerStore(),
@@ -21,16 +16,16 @@ const { song, list, progress, _currentTime, _duration } = storeToRefs(
       bg="opacity-50 white dark:dark-8"
       z="1"
     ></div>
-    <PlayerProgress
+    <player-progress
       :value="progress"
       :current-time="_currentTime"
       :duration="_duration"
       @update:value="progressUpdate"
     />
     <div flex="~ 1" justify="between">
-      <PlayerSongInfo w="1/3" :song="song" />
-      <PlayerController w="1/3" />
-      <PlayerAction w="1/3" />
+      <player-song-info w="1/3" :song="song" />
+      <player-controller w="1/3" />
+      <player-action w="1/3" />
     </div>
   </div>
 </template>

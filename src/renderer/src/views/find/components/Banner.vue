@@ -1,6 +1,5 @@
 <script setup lang="ts" name="">
 import { homeApi, HomeType } from '~/api';
-import { usePlayerStore } from '~/stores';
 const { play } = usePlayerStore();
 const banner = ref<HomeType['banner']>();
 const init = async () => {

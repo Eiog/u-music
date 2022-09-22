@@ -1,4 +1,5 @@
 import { songApi } from '~/api';
+import { colord } from 'colord';
 import { Ref } from 'vue';
 type AddPlauListResult = {
   url: string;
@@ -24,4 +25,12 @@ export const addPlayList = async (
     return error as any;
   }
 };
-export const getSongUrl = async (id: number | string) => {};
+
+export const getSatusColor = (color: string = '#ff461f') => {
+  return {
+    color: color,
+    hover: colord(color).lighten(0.1).toHex(),
+    pressed: colord(color).darken(0.1).toHex(),
+    suppl: colord(color).lighten(0.1).toHex(),
+  };
+};

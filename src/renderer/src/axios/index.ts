@@ -6,7 +6,6 @@ import axios, {
 } from 'axios';
 import NProgress from 'nprogress';
 import { formatJsonToUrlParams, instanceObject } from './_methods';
-import { useAppStore } from '~/stores';
 const BASE_PREFIX =
   import.meta.env.VITE_API_BASEURL || 'http://101.200.179.232:3702/';
 
@@ -48,21 +47,6 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError<{ code: number; msg: string }>) => {
     return Promise.reject(error);
-    if (error.code === 'ERR_CANCELED') {
-      return false;
-    }
-    const { response, request } = error;
-    NProgress.done();
-    if (response) {
-      const msg = response.data.msg || '';
-      // console.log(showCodeMessage(response.status));
-      window.$notification.error({ title: msg });
-      return Promise.reject(response.data);
-    }
-    if (request) {
-      window.$notification.error({ content: '链接超时' });
-      return Promise.reject(error);
-    }
   },
 );
 const http = {

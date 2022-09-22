@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { DataTableColumns, NTag } from 'naive-ui';
 import { RouterLink } from 'vue-router';
-import { usePlayerStore } from '~/stores';
 const { play } = usePlayerStore();
 type Props = {
   data?: Song.Detail[];

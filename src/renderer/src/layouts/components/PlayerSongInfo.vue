@@ -1,8 +1,6 @@
 <script setup lang="ts" name="">
-import { useAppStore } from '~/stores';
 import { SongType } from '~/api';
 type Song = SongType['songDetail']['songs'][0];
-const appStore = useAppStore();
 const { playerShow } = storeToRefs(useAppStore());
 type Props = {
   song?: Song;

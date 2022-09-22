@@ -1,7 +1,5 @@
 <script setup lang="ts" name="">
 import { searchApi } from '~/api';
-import { usePlayerStore } from '~/stores';
-import { SongTable } from '~/components';
 const { play } = usePlayerStore();
 const searchResult = ref<Song.Detail[]>();
 const searchResultCount = ref<number>(0);

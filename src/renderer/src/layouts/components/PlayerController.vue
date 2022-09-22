@@ -1,6 +1,5 @@
 <script setup lang="ts" name="">
-import { usePlayerStore } from '~/stores';
-const { play, prev, next } = usePlayerStore();
+const { prev, next } = usePlayerStore();
 const { playing } = storeToRefs(usePlayerStore());
 </script>
 <template>

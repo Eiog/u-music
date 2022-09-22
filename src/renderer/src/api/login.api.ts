@@ -1,6 +1,5 @@
 import http from '~/axios';
 import md5 from 'md5';
-import { useAppStore } from '~/stores';
 export type StatusResult = {
   code: number;
   account: {

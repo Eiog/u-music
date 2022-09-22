@@ -1,5 +1,4 @@
 <script setup lang="ts" name="">
-import { useAppStore } from '~/stores';
 const { themeColor } = storeToRefs(useAppStore());
 const colorList = [
   { name: '朱砂', color: '#ff461f' },

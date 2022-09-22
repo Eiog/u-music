@@ -1,6 +1,5 @@
 import { loginApi } from '~/api';
 import { storeToRefs } from 'pinia';
-import { useAppStore } from '~/stores';
 import NProgress from 'nprogress';
 import { RouteLocation } from 'vue-router';
 import { useTitle } from '@vueuse/core';

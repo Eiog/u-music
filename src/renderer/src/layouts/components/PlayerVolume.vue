@@ -1,9 +1,6 @@
 <script setup lang="ts" name="">
-import { usePlayerStore } from '~/stores';
 const { changeVolume } = usePlayerStore();
-const { progress, _currentTime, _duration, volume } = storeToRefs(
-  usePlayerStore(),
-);
+const { volume } = storeToRefs(usePlayerStore());
 const handleVolumeClick = (e: MouseEvent) => {
   e.preventDefault();
   e.stopPropagation();

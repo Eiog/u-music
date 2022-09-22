@@ -1,5 +1,4 @@
 <script setup lang="ts" name="">
-import { useAppStore } from '~/stores';
 const appStore = useAppStore();
 const icon = computed(() =>
   appStore.sideCollapsed ? `i-ri-arrow-right-s-line` : `i-ri-arrow-left-s-line`,

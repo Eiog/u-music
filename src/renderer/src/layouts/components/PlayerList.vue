@@ -1,7 +1,5 @@
 <script setup lang="ts" name="">
 import { ScrollbarInst } from 'naive-ui';
-import { usePlayerStore } from '~/stores';
-import { useAppStore } from '~/stores';
 const { list, index: currentIndex } = storeToRefs(usePlayerStore());
 const { clearList, play } = usePlayerStore();
 const { playerListShow } = storeToRefs(useAppStore());

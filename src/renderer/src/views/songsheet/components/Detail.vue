@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { usePlayerStore } from '~/stores';
-
 type Props = {
   data?: Song.Playlist;
 };

@@ -1,6 +1,5 @@
 <script setup lang="ts" name="">
 import { ScrollbarInst } from 'naive-ui';
-import { usePlayerStore } from '~/stores';
 import { songApi } from '~/api';
 const scrollbarRef = ref<ScrollbarInst>();
 const domRef = ref<HTMLElement | null>(null);

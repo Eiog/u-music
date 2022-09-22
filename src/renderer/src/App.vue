@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import DefaultLayout from './layouts/DefaultLayout.vue';
-import RouterEntry from './components/common/RouterEntry.vue';
-import { useAppStore } from '~/stores';
 const { darkMode } = storeToRefs(useAppStore());
 </script>
 <template>
   <naive-provider :dark="darkMode">
-    <DefaultLayout>
-      <RouterEntry />
-    </DefaultLayout>
+    <default-layout>
+      <router-entry />
+    </default-layout>
   </naive-provider>
 </template>
 

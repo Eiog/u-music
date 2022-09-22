@@ -1,5 +1,4 @@
 <script setup lang="ts" name="">
-import { usePlayerStore, useAppStore } from '~/stores';
 const { progressUpdate } = usePlayerStore();
 const { themeColor } = storeToRefs(useAppStore());
 const { progress, _currentTime, _duration } = storeToRefs(usePlayerStore());

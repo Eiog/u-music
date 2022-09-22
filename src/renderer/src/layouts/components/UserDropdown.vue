@@ -1,7 +1,6 @@
 <script setup lang="ts" name="">
 import { NButton } from 'naive-ui';
 import LoginPanel from './LoginPanel.vue';
-import { useAppStore } from '~/stores';
 import { loginApi } from '~/api';
 const { profile, cookie } = storeToRefs(useAppStore());
 const handleLogOut = () => {
